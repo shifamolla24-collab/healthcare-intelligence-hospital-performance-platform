@@ -1,0 +1,473 @@
+Staff_ID,Staff_Name,Department_ID,Staff_Role,Employment_Type,Experience_Years,Joining_Date,Employment_Status,Hourly_Cost
+S0001,Dr. Meera Patel,D01,Doctor,Full-time,-,2018-12-21,Active,1810
+S0002,Dr. Arjun Jadhav,D01,Doctor,Full-time,,2009-03-05,Active,1550
+S0003,prakash sharma,D01,Doctor,Full-time,18,2014-01-16,Active,Rs. 1510
+S0004,Vikram Singh,D01,Doctor,Full-time,14,2017-01-26,Inactive,1110
+S0005,Dr. Divya Patil,D01,Doctor,Full-time,19,2013-02-12,Active,1960
+S0006,aarav chopra,D01,Docotr,Contract,N/A,2020-11-11,Active,Rs. 1930
+S0007,Dr. Vihaan Nair,D01,Doctor,Full-time,17,2015-11-18,Active,1830
+S0008,Dr. Yash Bhat,D01,Doctor,FT,19,2013-11-30,Active,N/A
+S0009,"DSouza, Vihaan",D01,Doctor,Part-time,18,2011-11-17,Active,Rs. 2030
+S0010,Meera Deshmukh,D01,Doctor,Full-time,23,2015-04-07,Active,2380
+S0011,Dr. Zoya Iyer,N/A,Doctor,Fulltime,13,11-15-2018,A,2230
+S0012,Aditya Chopra,D01,Doctor,Contract,14,N/A,Active,2330
+S0013,Dr. Meera More,D01,Doctor,Full-time,10,2019-08-15,Active,2160
+S0014,Anil  Malhotra,D01,Doctor,Full-time,19,2014-10-27,Active,2050
+S0015,Dr. Priya Khan,D01,Doctor,Full-time,18,2012-02-06,A,1340
+S0016,anil verma,D01,Doctor,Full-time,6,07.11.2025,Active,2270
+S0017,Yash Sharma,D01,Nurse,Contract,10,21/11/2021,Active,420
+S0018,Nikhil Shah,D01,Nurse,Part-time,4,2027-10-20,Active,330
+S0019,Meera  Gupta,D01,Nurse,Full-time,14,2020-14-01,Active,580
+S0020,Sneha Joshi,D01,Nurse,,7,29/07/2022,Active,530
+S0021,JOSEPH PANDEY,D01,Nurse,Full-time,2,2025-03-31,Active,450
+S0022,Pooja  Pawar,D01,Nurse,Full-time,20,2013-08-12,Active,740
+S0023,Rahul Singh,D01,Nurse,Full-time,3 yrs,31/07/2023,Active,390
+S0024,Fatima Patel,D01,Nurse,Full-time,15,2018-06-03,Active,460
+S0025,Thomas  Das,D01,Nurse,Part-time,9,2025-01-14,Active,440
+S0026,Vikram Rao,D01,Nurse,Full-time,2,2024-12-27,Active,Rs 330/hr
+S0027,Harish Thakur,D01,Nurse,Part-time,5,2024-08-04,Active,500
+S0028,Kunal Yadav,D01,Nurse,Full time,3,2024-08-16,Active,490
+S0029,Swati  Patel,D01,Nurse,Full-time,10,2024-04-22,Active,null
+S0030,"Agarwal, Aarav",D01,Nurse,Full-time,8,2020-01-15,Active,420
+S0031,SACHIN SHARMA,D01,Nurse,Part-time,4,0000-00-00,Active,420
+S0032,Nikhil Fernandes,D01,Nurse,Full-time,,2024-06-28,Active,540
+S0033,aarav das,D01,Nurse,Full-time,N/A,12.03.2025,Active,360
+S0034,Deepak Iyer,D01,Nurse,Full-time,16,2017-04-16,Active,580
+S0035,Manish Pandey,D01,Nurse,Full-time,18,2014-06-01,Active,530
+S0036,Fatima Yadav,D01,Nurse,Full-time,19,2011-01-24,Active,680
+S0037,Ravi Thakur,D01,Nurse,Full-time,19,2010-05-20,Active,620
+S0038,"DSouza, Riya",D01,Nurse,Part-time,10,2020-02-07,ACTIVE,500
+S0039,Amit Thakur,D01,NURSE,Ful-time,3,2024-09-28,Active,430
+S0040,Grace Pandey,D01,Nurse,Full-time,12 yrs,2019-10-29,A,490
+S0041,Arjun Reddy,D01,Nurse,Full-time,16,2013-08-17,NA,670
+S0042,Aisha Patel,D99,Nurse,Full-time,20,2011-05-15,Active,500
+S0043,Maria DSouza,D01,Nurse,Contract,4,2023-07-30,Active,370
+S0044,Rohan Kulkarni,D01,Nurse,Part-time,21,2008-09-27,Active,590
+S0045,Manish Desai,D01,Nurse,full-time,8,2025-12-01,Active,400
+S0046,"Bose, Aditya",D01,Nurse,Full-time,11,2011-03-08,Active,710
+S0047,"Shah, Maria",D01,Nurse,Full-time,14,2019-03-07,Active,420
+S0048,anil khan,D01,Nurse,Full-time,9,2023-02-17,Active,520
+S0049,Manish  Iyer,D01,Nurse,Part-time,7,2013-02-26,Active,630
+S0050,"Shinde, Sandeep",D01,Nurse,Full-time,22,16-Mar-2009,ACTIVE,590
+S0051,Karan Agarwal,D01,Nurse,Full-time,9,12-14-2019,Active,430
+S0052,,D01,Nurse,Full-time,4,2024-03-05,Active,420
+S0053,Pooja Menon,D01,NURSE,Full-time,10,2023-03-17,Active,460
+S0054,Suresh Jadhav,D01,Nurse,Contract,15 yrs,2028-04-11,Inactive,
+S0055,,D01,Nurse,Part-time,75,24.01.2011,Active,620
+S0056,vikram bose,D01,Nurse,Part-time,15,2011-06-16,Active,500
+S0057,Mohammed Kapoor,D01,Nurse,Contract,3,2023-10-14,Active,470 INR
+S0058,Grace Fernandes,D01,Nurse,Full-time,13,21/07/2017,Active,510
+S0059,pooja mehta,D01,Nurse,Full-time,7,2020-12-08,Active,560
+S0019,Meera  Gupta,D01,Nurse,Full-time,14,2020-14-01,Active,580
+S0060,Manish Mehta,D01,Nurse,Part-time,,2022-07-04,Inactive, 
+S0061,Mohammed Gupta,D01,Nurse,Full-time,9,2024-08-13,Active,560
+S0062,Sandeep Nair,D01,Nurse,Contract,15,2013-02-10,Active,520
+S0063,neha yadav,D01,Nurse,Full-time,16 yrs,23.03.2014,Active,600
+S0064,Rohan Mehta,D01,Nurse,Full-time,10,20.10.2018,Active,580
+S0065,Imran Pandey,D01,Nurse,Full-time,3,20/05/2024,Active,380
+S0066,Grace Bhat,D20,Nurse,,10,2023-01-22,Active,520
+S0067,Anjali Shaikh,D01,Nurse,Full-time,17,25/04/2011,Active,490
+S0068,Sanjay Banerjee,D01,Nurse,Contract,8,2023-11-30,active,480
+S0069,HARISH MALHOTRA,D01,NURSE,Full-time,7,2021-01-25,Active,450
+S0070,Anjali Kulkarni,D01,NURSE,Contract,9,2022-11-16,Active,430
+S0071,Prakash Kulkarni,D01,Nurse,Full-time,6,2029-05-01,Active,380
+S0072,SARA JADHAV,D01,Nurse,Full-time,24,2008-12-20,Active,570
+S0073,Fatima Singh,D01,Technician,Part-time,10 yrs,2017-12-09,Active,?
+S0074,Yash Reddy,D01,Technician,Full-time,23,2008/07/25,Active,520
+S0075,Sanjay  Sharma,D01,Technician,Full-time,20,2010-09-17,Active,N/A
+S0076,Anita DSouza,D01,Technician,Full-time,19,2013-12-26,Active,550
+S0077,"Kapoor, Rahul",D01,Technician,Full-time,9,2025/04/21,Active,470
+S0078,Sandeep  Kulkarni,D01,Technician,Contract,14,2019-09-22,Active,490
+S0079,Amit More,D01,Technician,Full-time,12,2018-07-27,Active,430
+S0080,Shruti Pandey,D01,Technician,Part-time,22,2009-07-13,Active,550
+S0081,Sandeep Khan,D01,technician,Full-time,15,2012-12-15,Active,440
+S0082,arjun malhotra,D01,technician,Full-time,19,2008-04-01,Inactive,470
+S0083,Rekha Kulkarni,D01,Technician,Contract,3,2024/07/20,In-active,310
+S0084,Thomas Verma,D01,Technician,Contract,18,2027-11-06,Active,550
+S0085,Zoya Jadhav,D01,Technician,Full-time,6,2022-11-16,Active,470
+S0462,Arjun Joshi,D06,Nurse,Full-time,23,2010-03-27,Active,6700
+S0086,Farhan Malhotra,D01,Technician,Full-time,18,null,Active,590
+S0087,Ravi Iyer,D01,Technician,Full-time,5,2024-11-20,Active,300
+S0088,"Fernandes, Mohammed",D01,Technician,Full-time,9,2017-09-17,Active,470
+S0089,Neha Singh,D01,Technician,Full-time,8,08-25-2019,Active,320
+S0183,Divya Pawar,D04,Nurse,Full-time,13,2015-06-09,Active,550
+S0090,Shruti Pillai,D01,Technician,Full-time,,2021-01-17,Active,470
+S0091,Sara Singh,D02,Doctor,full-time,NA,2011-12-09,Active,1320
+S0092,Dr. Rohan Pillai,,Doctor,Part-time,20,2016-08-07,Active,NA
+S0093,Vihaan Pawar,D02,Doctor,Full-time,11,2018-10-08,Active,1050
+S0213,Suresh Bose,D05,Nurse,Contract,12,11-08-2020,A,490
+S0094,Joseph Fernandes,D02,Doctor,Contract,,2022-04-06,Active,0
+S0095,Manish Shinde,D02,Doctor,Full-time,18,22/02/2017,Active,2410
+S0096,Kunal Mehta,D02,Doctor,Part-time,18,2018-07-16,Active,2050
+S0097,Dr. Meera Jadhav,D02,NA,Full-time,13,19-Feb-2017,A,1270
+S0098,Dr. Rajesh Thakur,D02,Doctor,Part-time,16,26-Sep-2013,Active,2200
+S0099,Dr. Sanjay Das,D02,Docter,Full-time,15,2008-04-04,Active,2090
+S0100,ADITYA PATEL,D02,Doctor,Full-time,14,2022-06-13,Inactive,2080
+S0101,Pooja Gupta,D02,Nusre,Full-time,15,2012-08-18,Active,560
+S0102,zoya nair,D02,Nurse,Contract,15,2015-01-16,Active,470
+S0103,anil chopra,D02,Nurse,Full-time,18,2012-11-05,Active,730
+S0104,Amit Banerjee,D02,Nurse,Full-time,1,08.07.2020,Active,480
+S0105,Thomas Khan,D02,Nurse,Full-time,20,2009-08-01,Active,670
+S0106,Rajesh Patel,D02,Nurse,Full-time,15,2016-04-08,Active,460
+S0107,Aisha Reddy,D02,Nurse,Full-time,14,2014-10-25,Inactive,530
+S0108,Karan Kapoor,D02,Nurse,Full-time,-,2018-10-21,Active,460
+S0109,vihaan bhat,D02,Nurse,Contract,17,2016-01-29,Active,610
+S0110,Swati Mehta,D02,Nurse,Full time,19,2011-11-09,Active,740
+S0111,Shruti Sharma,D02,Nurs,Full-time,13,05-06-2020,Active,520
+S0112,"Yadav, Lakshmi",D02,Nurse,Full-time,7,2022-03-19,Active,530
+S0113,Meera Malhotra,D02,Nurse,Full-time,99,2017-05-09,Active,450
+S0114,Kavita Kapoor,D02,Nurse,Full-time,9,2020-10-22,Active,430
+S0115,"Menon, Grace",D02,Nurse,Full-time,18 yrs,2016-03-02,Active,500
+S0116,PRAKASH CHATTERJEE,D02,Nurse,Full-time,2,,Active,490
+S0117,Lakshmi  Shinde,D02,Nurse,Part-time,20,None,Active,530
+S0118,Rohan Shaikh,D02,Nurse,Contract,15,2018-08-22,Active,600
+S0119,Meera Verma,D02,Nurse,,17,2012-03-31,Active,580
+S0120,"Kulkarni, Sunita",D02,Nurse,Full-time,None,2023-08-21,Active,470
+S0121,Aisha Bhat,D02,Nurse,Part-time,19,2013-10-06,Active,640
+S0122,Rekha Bose,D02,Nurse,Full-time,21,2011-03-20,Active,590
+S0123,Grace Patel,D02,Nurse,Full-time,12,2010-09-03,Active,730
+S0124,"Desai, Joseph",D02,Nurse,Full-time,24,2008-04-03,Active,680
+S0125,Kavita Rao,D02,Nurse,Contract,8,2012-08-17,Inactiv,670
+S0126,Sachin Iyer,D02,nurse,Part-time,15,2012-05-06,Active,640
+S0127,Anita Nair,D02,Nurse,Full-time,19,2015/04/11,Active,670
+S0128,zoya desai,D02,Nures,Ful-time,22,2008-05-17,Active,650
+S0129,Swati Das,D02,Nurse,Contract,,2012-02-25,Inactive,740
+S0130,Aditya Kulkarni,D02,Nurse,Full-time,3,2023-10-01,Active,470
+S0131,Anjali Rao,D02,Nurse,Full-time,16,2012/08/04,Active,640
+S0132,Rajesh Chopra,D02,Nurse,Part-time,8,2024-04-04,Active,360
+S0133,Kunal Agarwal,D02,Nurse,Part-time,8,2022-02-07,Active,450
+S0134,Joseph Khan,D02,Nurse,Full-time,23,2009-06-12,Active,700
+S0135,Yash Kapoor,D02,Technician,Full-time,15,2014/07/12,Active,550
+S0136,farhan bose,D02,Technician,Ful-time,24,27/07/2008,active,-
+S0137,Sachin Nair,D02,Technician,Contract,16,2014-11-18,Active,490
+S0138,Farhan Shinde,D02,Technician,Full-time,18 yrs,05.04.2015,Active,470
+S0139,Rahul  Sharma,D02,Technician,Full-time,7,28.01.2022,Actve,340
+S0140,Rohan Nair,D02,Technician,Full-time,17,2014-05-03,Inactive,520
+S0141,Dr. Sanjay Thakur,D03,Doctor,Contract,16,2021-10-29,Active,1840
+S0142,Imran Shinde,D03,Doctor,Full-time,13,2017-04-12,Active,1930
+S0143,Sachin  Deshmukh,D03,Doctor,FT,?,2020-11-22,Active,1540
+S0144,Rohan Patel,D03,Doctor,Full time,22,2013-12-03,Active,2350
+S0145,Dr. Harish Fernandes,D03,Doctor,Full-time,16,2018-06-18,Active,2100
+S0146,Isha Khan,D03,Doctor,Part-time,21,0000-00-00,Active,2010
+S0147,Meera Bhat,D03,Doctor,Full-time,24,2009-02-20,Active,1950
+S0148,Karan Singh,D03,Doctor,,N/A,2021-04-14,Active,2110
+S0149,Suresh Menon,D03,Nurse,Contract,8,2023-06-24,Active,510
+S0150,Neha Gupta,D03,Nurse,Full-time,24,2009-06-03,Active,620
+S0151,rekha shah,N/A,Nurse,Full-time,10,2019-04-14,Active,
+S0152,Imran Chatterjee,D03,Nurse,Contract,22,01-23-2010,Active,6500
+S0153,Suresh Singh,D03,Nurse,Part-time,8,2024-12-03,Active,370
+S0154,Sneha Malhotra,D03,Nurse,Part-time,23,2009-03-10,active,720
+S0155,Rahul Patil,D03,Nurse,Full-time,17,2011-04-05,Active,700
+S0156,thomas fernandes,D03,Nurse,Full-time,7,26.10.2022,Active,580
+S0157,GRACE DESAI,D03,Nurse,Prt-time,24,2010/02/07,Active,700
+S0158,Isha DSouza,D03,Nurse,Full-time,16,23.12.2010,Active,500
+S0159,Imran  Joshi,D03,Nurse,Full-time,6 yrs,2024-03-27,Active,320
+S0160,Zoya Gupta,D03,Nurse,Full-time,19,2009/06/09,Inactive,620
+S0161,"Gupta, Joseph",D03,Nurse,Part-tme,16,2013-09-03,Active,510
+S0162,"Chopra, Sara",D03,Nurse,Full-time,3,2023-09-24,Active,360
+S0163,Kunal Pandey,D03,Nurse,Part-time,7,,Active,510
+S0164,JOSEPH SINGH,D03,Nurse,Full-time,17,17-Apr-2010,Active,490
+S0165,Aditya Banerjee,D03,Nurse,Part-time,7,2021-08-11,Active,500
+S0166,Swati Deshmukh,D03,Nurse,Full-time,5,2024-11-30,Active,510
+S0167,Rohan  Patil,D03,Nurse,Contract,18,2012-01-18,Active,480
+S0168,Grace More,D03,NURSE,Full-time,10,2017-05-04,Active,520 INR
+S0169,"Kulkarni, Mohammed",D03,Nurse,Part-time,10,,Inactive,560
+S0170,Yash Shah,D03,Nurse,NULL,18,21-Apr-2014,Active,
+S0171,Neha Nair,D03,Technician,Part-time,13,2014-02-22,Active,500
+S0172,Prakash Malhotra,D03,Technician,Full time,18,2014-08-15,Active,590
+S0173,DIVYA THAKUR,D03,Technician, ,8,2022-10-07,Activ,300
+S0048,anil khan,D01,Nurse,Full-time,9,2023-02-17,Active,520
+S0174,Meera Kulkarni,D03,Technician,Contract,24,2008-06-18,Active,640
+S0175,NULL,D03,Technician,Full-time,NULL,2019-07-30,Active,Rs. 490
+S0176,Dr. Nikhil Mehta,D04,Doctor,Full-time,15,2017-06-23,Active,1500
+S0177,Dr. Anil Menon,D04,Doctor,Full-time,10,2021-02-15,Active, 
+S0178,Manish Reddy,D04,null,Full-time,17,2021-02-10,Active,2060
+S0455,Arjun Das,D12,Nurse,Full-time,11,2008-03-19,Active,680
+S0179,Dr. Karan Patel,D04,Doctor,Full-time,25,2013-02-25,Active,2040
+S0180,Dr. Sachin Banerjee,D04,Doctor,Contract,19,2016-02-13,Active,2220
+S0181,Riya Chatterjee,D04,doctor,Full-time,22,2008/05/24,Active,2320
+S0182,Pooja Das,D04,Doctor,Part-time,3,25-Jul-2016,Inactive,1280
+S0183,Divya Pawar,D04,Nurse,Full-time,13,2015-06-09,Active,550
+S0184,Fatima Mishra,D04,Nurse,Full-time,9 yrs,2022-08-15,Active,400
+S0185,Prakash More,D04,Nurse,Full-time,11,2020-11-26,Actve,440
+S0186,NEHA THAKUR,D04,Nurse,Full-time,120,2014-09-21,Active,500
+S0187,Lakshmi Fernandes,D04,NURSE,Full-time,5,2024-06-03,Inactive,490
+S0188,Joseph Kulkarni,D04,Nurse,Full-time,13,2017-01-13,Active,540
+S0189,Anita Rao,D04,Nurse,Contract,10,2013-07-17,Active,650
+S0226,Mohammed  Agarwal,D05,Nurse,Part-time,10,2019-05-19,Active,560
+S0190,Sanjay Chatterjee,D04,Nurse,Part-time,7,2019-07-01,Active,540
+S0191,Manish Malhotra,D04,Nurse,Full-time,12,2016-04-05,Active,550
+S0192,HARISH YADAV,D04,Nurse,None,3,2025-04-21,Active,400
+S0193,Karan Desai,D04,Nurse,Full-time,6,2023-11-13,Active,470
+S0194,Mohammed Khan,D04,Nurse,Full-time,22,2028-02-06,Active,630
+S0195,Isha Rao,D04,Nurse,Part-time,17,2012-07-08,Active,580
+S0196,PRAKASH PATEL,D04,Nurse,Part-time,19,2015/04/14,Active,560
+S0168,Grace More,D03,NURSE,Full-time,10,2017-05-04,Active,520 INR
+S0197,KUNAL MORE,D04,Nurse,Full-time,2,2020-04-04,,Rs 420/hr
+S0198,Nikhil  Pillai,D04,Nurse,Full-time,9,03-Jan-2019,Inactive,620
+S0199,Lakshmi Bhat,D04,Nurse,Full-time,,25.11.2023,Active,350
+S0200,Swati  Sharma,D04,Nurse,Full-time,23,2019-02-30,Active,540
+S0201,Grace Thakur,D04,Technician,Contract,9,2019-05-07,Active,460
+S0202,"Iyer, Yash",D04,Technician,Full-time,2,2024-05-29,Active,280
+S0203,Sanjay DSouza,D04,Technician,Full-time,NULL,2010-01-30,Active,520
+S0204,Thomas  Thakur,-,Technician,Part-time,12,2020/02/12,Active,0
+S0205,Amit Shaikh,D04,Technician,Contractor,9,2019-09-28,Active,400
+S0206,Dr. Anil Pillai,D05,doctor,Full-time,29,2008-09-22,Active,1370
+S0207,Aisha Das,D05,Doctor,Full-time,27,30.09.2008,Active,2200
+S0208,Amit Kulkarni,D05,Doctor,Full-time,25,,Active,1510
+S0209,Swati Chatterjee,D05,Doctor,Contract,10,2013-01-26,Active,2170
+S0460,Kavita Kapoor,D02,Nurse,Full-time,9,2020-10-22,Active,430
+S0210,Prakash Mehta,D05,Doctor,Contract,14,2020-05-13,Active,1450
+S0211,,D05,Doctor,Full-time,11,2023-12-01,Active,1610
+S0212,ADITYA DAS,D05,Nurse,Full-time,9,2020-04-25,Active,470
+S0213,Suresh Bose,D05,Nurse,Contract,12,11-08-2020,A,490
+S0214,RAVI PILLAI,D05,Nurse,full-time,17,2015-03-02,Inactive,500
+S0215,Sunita Chatterjee,D05,Nurse,Full-time,17,2011-11-15,Active,550
+S0216,Riya Menon,D05,nurse,Full-time,10,,Active,540
+S0217,Rekha Bhat,D05,Nurse,Full-time,6,2020-06-13,Active,590
+S0218,Sara Pawar,D05,Nurse,Full-time,5,2023-07-19,Active,440
+S0219,Rajesh Gupta,D05,Nurse,Full-time,14,2018-04-28,Active,550
+S0220,Fatima Deshmukh,D05,Nurse,Full-time,6,05/07/2025,Active,400
+S0221,ZOYA FERNANDES,D05,Nurse,Part-time,9,2022-07-24,Active,Rs. 470
+S0222,grace jadhav,D05,Nurse,Part-time,NA,05/01/2025,Active,N/A
+S0223,Nikhil Thakur,D05,Nurse,Full-time,13,2020-02-05,Active,Rs. 460
+S0224,isha pandey,D05,Nurse,Part-time,15,2012-04-08,Active,560
+S0225,Fatima Shah,D05,Nurse,Full-time,-2,2022-11-09,Active,570
+S0226,Mohammed  Agarwal,D05,Nurse,Part-time,10,2019-05-19,Active,560
+S0227,pooja thakur,D05,Technician,Full-time,10 yrs,2021-02-17,Inactive,440
+S0228,SUNITA MORE,D05,Technician,Full-time,19,2013-02-08,,490
+S0229,Maria Pillai,D05,Technician,Full-time,20,2009-06-27,Active,Rs 450/hr
+S0230,Farhan Iyer,D05,Technician,Full-time,2,15.06.2025,,330
+S0231,isha mehta,D06,Doctor,Full-time,21,2016-07-12,Active,Rs. 2240
+S0232,rajesh deshmukh,D06,Doctor,Part-time,12,21-Sep-2018,Active,1070
+S0233,Joseph Naik,D06,Doctor,Full-time,23,2009-02-06,Active,2130
+S0234,N/A,D06,Doctor,Part time,10,15.08.2023,Active,2110
+S0235,Dr. Meera Thakur,D06,Doctor,Full-time,7,N/A,Active,22800
+S0236,Dr. Rahul Chopra,D06,Doctor,Full-time,24,2008-03-19,Active,1210
+S0237,Dr. Rajesh Banerjee,D06,Doctor,Full-time,19,2013-01-20,Active,1920
+S0238,Dr. Nikhil Agarwal,D06,Doctor,Full-time,20,11-Oct-2010,Active,1670
+S0239,Rajesh Pillai,D06,Doctor,Full-time,14,2016-06-04,Active,1160
+S0459,Aisha Bhat,D02,Nurse,Part-time,19,2013-10-06,Active,640
+S0240,Dr. Aisha Nair,D06,Doctor,Full-time,11,20/11/2019,Inactive,2070
+S0241,Prakash Naik,D06,Nurse,Contract,16,2013-12-04,Active,610
+S0242,Riya Shinde,D06,Nurs,Fulltme,18,2011-03-04,Active,590
+S0243,Suresh Chopra,D06,Nurse,-,17,2012-03-07,Active,630
+S0244,Yash Singh,D06,Nurse,Full-time,21,2010-10-23,Active,Rs. 750
+S0245,Priya Chopra,D06,Nurse,FT,6,24-Jun-2023,Active,Rs 470/hr
+S0246,Anil  Chatterjee,D06,Nurse,Full-time,14,2017-04-04,null,590
+S0247,"Malhotra, Anita",D06,Nurse,Full-time,21,2008-12-22,Active,580
+S0248,Isha Singh,D06,Nurse,Full-time,11,07-13-2015,Active,470
+S0249,VIKRAM DSOUZA,D06,NULL,Full-time,10,2016-05-01,Active,400
+S0250,Anil Deshmukh,D06,Nurse,Part-tme,8,2027-10-07,Active,510
+S0251,Anjali Malhotra,D99,Nurse,Contract,4,2019-08-05,Actve,500
+S0252,Deepak Banerjee,D06,Nurse,Full-time,12,2020-12-28,Active,450
+S0253,Sachin Shah,D06,nurse,Full-time,9,06-Jun-2011,Active,760
+S0254,Anil Mehta,D06,nurse,Full-time,12,2008-04-19,Active,660
+S0255,Divya Deshmukh,D06,Nurse,Full-time,17,2016-03-26,Active,520
+S0256,Rahul Kulkarni,D06,Nurse,Full-time,19,2013-11-07,Active,550
+S0257,Aditya Agarwal,D06,Nurse,?,5,2014-02-26,Inactive,610
+S0391,Arjun Naik,D11,Nurse,Full-time,13,18/09/2015,Active,470
+S0258,Sneha Naik,D06,Nurse,Full-time,4,2024-04-05,Active,440
+S0259,"DSouza, Amit",D06,Nurse,Part-time,6,2023-07-10,Inactive,480
+S0260,Fatima Chopra,D06,Nurse,Full-time,7,2022-01-17,Active,420
+S0261,Vihaan Kapoor,D06,Nurse,Full-time,23,2008-11-28,Active,780
+S0262,Yash Khan,D06,Nurse,Part-time,19,2011-09-15,Active,570
+S0263,Nikhil Gupta,D06,Nurse,Full-time,25,2009-02-03,Active,570
+S0264,Sara Shinde,D06,Nurse,Contract,16,2012-11-29,Active,600
+S0265,DEEPAK SHINDE,D06,Nurse,Part-time,16,2016-06-19,Active,690
+S0266,Aisha Pawar,D06,Nurse,Full-time,15,2013-04-26,Inactive,480
+S0267,"Khan, Zoya",D06,Nurse,full-time,6 yrs,27-Sep-2020,Active,360
+S0268,Rahul Joshi,D06,Nurse,Full-time,22,2009-08-08,Active,520
+S0452,fatima iyer,D08,Doctor,Full-time,9 yrs,2025-08-21,Active,
+S0269,Joseph Yadav,D06,Nurse,Full-time,9,2023-09-19,Active,600
+S0270,Arjun Joshi,D06,Nurse,Full-time,23,2010-03-27,Active,6700
+S0271,Neha Sharma,D06,Nurse,Contract,13,2017-02-16,Active,610
+S0272,Priya Iyer,D06,Nurse,Contract,11,2018-10-06,ACTIVE,650
+S0273,Sanjay Menon,D06,Technicain,Full-time,1,2025-05-13,Active,230
+S0274,Sneha Iyer,D06,Technician,Full-time,15,2008-04-29,Active,500
+S0451,Harish Das,D07,Doctor,Full-time,15,2014-12-23,Active, 
+S0275,Ravi Yadav,D06,NULL,Part-time,9,2020-01-28,Active,420
+S0276,Vihaan Verma,D06,Technician,Full-time,10,2023-06-24,Actve,Rs. 460
+S0277,"Banerjee, Anjali",D06,Technician,Full-time,9,2025-02-23,Active,390
+S0278,,D06,Technician,Full-time,12,2022-02-08,Active,460
+S0279,Farhan Nair,D06,Technician,Full time,6,2023-05-23,Active,370
+S0280,Vihaan Desai,D06,Technician,Full-time,23 yrs,2008-03-25,Active,630
+S0281,Dr. Maria Bhat,D07,Doctor,FT,7,12-Feb-2024,Active,1400
+S0282,Joseph  Reddy,D07,Doctor,Full-time,8,2013-11-12,Active,-1900
+S0283,Vihaan Patil,D07,Doctor,Contract,23,2008-07-20,Inactive,2000
+S0284,"Joshi, Sachin",D07,Doctor,Full-time,22,2008-01-14,Active,1390
+S0285,Anjali DSouza,D07,Doctor,Full-time,7,2023-11-05,Active,1980
+S0286,Harish Das,D07,Doctor,Full-time,15,2014-12-23,Active, 
+S0287,Rekha Sharma,D07,Nures,Full time,11 yrs,2019-11-02,Active,430
+S0288,NA,D07,Nurse,Contract,10,08/09/2017,Active,380
+S0289,Meera Banerjee,D07,Nurse,Full-time,18,2010-07-27,Active,610
+S0290,RAJESH DESAI,D07,Nurse,Full-time,8,18.07.2024,Active,380
+S0291,Vihaan Das,D07,Nurse,Contract,18,03.07.2009,Active,?
+S0292,Deepak Mishra,D07,Nurse,Conract,23,2008-10-24,Active,750
+S0293,Riya Joshi,D07,Nurse,Full-time,22,2010-02-13,Active,630
+S0294,LAKSHMI DSOUZA,D07,Nurse,Part-time,16,2015-11-26,Active,510
+S0295,Divya Malhotra,D07,Nurse,Contract,,2016/10/21,Active,560
+S0296,Farhan  DSouza,D07,nurse,Full-time,11,08.12.2021,Active,430
+S0297,Aditya More,D07,Nurse,Full-time,19,2009-03-21,Inactive,570
+S0456,"Malhotra, Anita",D06,Nurse,Full-time,21,2008-12-22,Active,580
+S0298,Arjun Khan,D07,Nurse,FT,,0000-00-00,Active,570
+S0299,MEERA SHAH,D07,Nurse,Full-time,11,2015-07-03,Active,440
+S0326,Maria Menon,,NURSE,Contract,4,2023-01-15,Active,420
+S0300,Farhan Desai,D07,Nurse,Full-time,5,2024-01-26,Active,530
+S0301,Harish Patel,D07,Nurse,Full-time,22 yrs,2010-12-03,Active,Rs 760/hr
+S0302,Riya Pawar,D07,Technician,Contractor,-5,2014-08-09,Active,NA
+S0303,Isha Kapoor,D07,Technician,Contract,15,17-Oct-2008,Inactive,510
+S0304,Vikram Patil,D07,Technician,?,18,2016-04-10,null,520
+S0305,"Shinde, Sneha",D07,Technician,Part-time,18,2009-12-17,Active,-550
+S0453,Amit More,D01,Technician,Full-time,12,2018-07-27,Active,430
+S0306,Dr. Pooja DSouza,D08,Doctor,Full-time,6,2015-11-16,Active,1910
+S0307,Vihaan Malhotra,D08,Doctor,Full-time,21,2009-08-01,Active,2440
+S0308,Dr. Thomas Nair,D08,Doctor,Full-time,5,2016-01-04,Active,1170
+S0309,Dr. Yash Bose,D08,Doctor,Full-time,99,17/03/2024,Active,
+S0310,Dr. Shruti Reddy,D08,Doctor,Part-time,24,2008-05-21,A,2470
+S0311,Dr. Anjali Chopra,D08,Doctor,Full-time,13,2019-11-10,Inactive,1790
+S0312,Meera Shinde,D08,Doctor,Full-time,20,2017/11/14,Active,1620
+S0313,Dr. Suresh Thakur,D08,Doctor,Full-time,10,2019/06/30,Active,2240
+S0314,Dr. Anita Thakur,D08,Doctor,Contract,23,07/05/2010,Active,2360
+S0315,fatima iyer,D08,Doctor,Full-time,9 yrs,2025-08-21,Active,
+S0316,SANDEEP SHAH,D08,Nurse,Full-time,8,2020-12-17,Active,390
+S0317,Kavita Naik,D08,Nurse,Full-time,-1,2018-01-20,Active,440
+S0318,Ravi Rao,D08,Nurse,FT,17,23/11/2010,A,680
+S0319,Prakash Pawar,D08,,Full-time,8,2024-10-18,active,360
+S0320,Priya Shaikh,D08,Nurse,Full-time,18,2012-01-12,Active,690
+S0321,Swati DSouza,D08,Nurse,Full-time,14,2019/10/04,Active,460
+S0322,Aditya Joshi,D08,Nurse,Full-time,22,2011-05-24,Active,560
+S0323,isha verma,D08,None,Full-time,16,2016-01-20,A,470
+S0324,Rajesh Naik,D08,Nurse,Full-time,14,2008-06-13,Active,630
+S0325,Karan Rao,D08,Nurse,full-time,11,2020-08-01,Active,530
+S0326,Maria Menon,,NURSE,Contract,4,2023-01-15,Active,420
+S0327,Maria Nair,D08,Nurse,Full-time,18,2015-10-09,Active,700
+S0328,ARJUN KAPOOR,,Nurse,Contract,9 yrs,2022-09-14,Active,530
+S0329,"Chatterjee, Rekha",D08,Nurse,Full-time,16,2011-06-19,,540
+S0330,YASH PATIL,D08,Nurse,Full-time,22,2008-11-17,Active,630
+S0458,arjun malhotra,D01,technician,Full-time,19,2008-04-01,Inactive,470
+S0331,manish bhat,D08,Nurse,Fulltime,22,2008-12-29,Active,570
+S0332,Maria Shaikh,D08,Nurse,Full-time,21,18-Aug-2008,ACTIVE,690
+S0333,THOMAS CHATTERJEE,D08,Nurse,Part-time,7,2024-08-17,Active,480
+S0461,Dr. Nikhil Mehta,D04,Doctor,Full-time,15,2017-06-23,Active,1500
+S0334,Swati Yadav,D08,Nurse,Full-time,-2,2017-10-24,Inactive,600
+S0457,Thomas Menon,D12,Nurse,Full-time,20,2009-05-28,Actve,660
+S0335,JOSEPH THAKUR,D08,Nurse,Full-time,15,2014-08-09,Inactive,null
+S0336,Pooja Rao,D08,Nurse,Full-time,17,2012-06-08,Active,690
+S0337,Vihaan Agarwal,D08,Nurse,Part-time,8,,Active,590
+S0338,Nikhil Patel,D08,Nurse,Full-time,15,19/03/2016,Active,630
+S0339,Pooja Naik,D08,Nurse,Full-time,4,10-24-2015,Active,440
+S0340,Mohammed Shaikh,D08,Technician,Full-time,8,null,Active,490
+S0341,Lakshmi  Chopra,D08,technician,NA,18,2009-03-17,Active,590
+S0342,Rahul Naik,D08,Technician,Part-time,11,2018-06-15,Active,3900
+S0343,,D08,Technician,Full-time,12,2027-06-19,Active,370
+S0344,nikhil verma,D20,Technicain,Full-time,6,29.09.2022,A,300
+S0345,Sara More,D08,Technician,Full-time,17,08-04-2009,Active,430
+S0346,Amit Yadav,D09,doctor,Full-time,12,2023-10-28,Active,2030
+S0347,Dr. Nikhil Khan,D09,Doctor,Contract,16,2021-01-24,Active,1800
+S0348,Dr. Maria Patil,D09,Doctor,Part-time,11,2021-01-24,Active,1770
+S0349,Dr. Karan Naik,D09,Doctor,Full-time,17,2015-01-19,A,1740
+S0350,Sunita  Shinde,D09,Nurse,Full-time,17,2016-05-23,Active,590
+S0351,Zoya Yadav,D09,Nurse,Full-time,5,2022-05-22,Active,560
+S0352,Farhan Singh,D09,Technician,Full-time,17,2014-09-22,Active,440
+S0353,Imran Pillai,D09,Technician,Part-time,24,2009-11-11,Inactive,630
+S0354,VIHAAN PATEL,D09,Technician,Full-time,9,2013-12-28,Active,460
+S0355,Ravi Agarwal,D09,Technician,Full-time,19 yrs,2008-06-22,Active,580
+S0356,Fatima Nair,D09,Technician,Part-time,19,2010-12-03,Active,0
+S0357,sachin bose,D09,Technician,Full-time,17,2010-03-19,Active,490
+S0358,MOHAMMED PATEL,D09,Technician,Full-time,11,2021-09-03,Active,380 INR
+S0359,Lakshmi Deshmukh,D09,Technician,Full-time,4,14.12.2024,Inactive,370
+S0360,Karan Malhotra,D09,Technician,Full-time,7,2014-04-06,Active,null
+S0361,Rekha Desai,D09,Technican,Full-time,8,,Active,410
+S0362,SANDEEP DESAI,D09,Technician,Full-time,10,2021-12-25,Active,380 INR
+S0363,AARAV IYER,D09,Technician,Contract,14,2018-08-07,Active,520
+S0364,Sneha More,D09,Technician,Full-time,13,2014-06-26,Active,410
+S0365,DIVYA BANERJEE,D09,Technician,Full-time,6,2015-01-09,Active,540
+S0366,Vihaan Pillai,D10,Doctor,Full-time,7,2025-05-30,Active,2010
+S0367,Divya Verma,D10,Doctor,N/A,?,2011/11/22,Active,2010
+S0368,Sachin Chatterjee,D10,Nurse,Part-time,15,2016-12-01,Active,-600
+S0369,Harish Jadhav,D10,Nurse,Full-time,17,2010-11-11,Active,690
+S0370,Anil Joshi,D10,Nurse,Full-time,9,2019-11-08,Active,450
+S0371,Divya Menon,D10,Technician,Contractor,13,2018-09-09,Active,530
+S0372,Anil Patil,D10,Technician,Contract,10,02-Apr-2012,Active,540
+S0373,Aditya Pawar,D10,Technician,Full-time,4,2016-05-08,Active,370
+S0374,Sara Fernandes,D10,Technician,Full-time,21,2009-07-22,Active,610
+S0375,Riya Pillai,D10,Technician,Full-time,6,2025-04-07,Active,390
+S0376,SACHIN MORE,D10,Technician,Full-time,-3,2023-02-28,Active,390
+S0377,Farhan Jadhav,D10,technician,Full-time,5,2022-12-05,Active,270
+S0378,Amit Fernandes,D10,Technician,Full-time,10,2013-09-26,Active,430
+S0379,"Yadav, Yash",D10,Technician,Contract,8,2022-10-03,Active,310
+S0380,"Fernandes, Anil",D10,Technician,Full-time,16,2012/12/26,Active,N/A
+S0381,YASH MALHOTRA,D10,Technican,,11,,Inactive,450
+S0382,Pooja Nair,D10,Technician,Part-time,,07-Jan-2011,ACTIVE,580
+S0383,RAHUL CHATTERJEE,D10,Technician,Part-time,11,16-Feb-2016,Active,460
+S0384,"Fernandes, Sunita",D10,Technician,Full-time,13,2017-04-24,Inactive,400
+S0385,Joseph More,D10,-,Full-time,21,2008-01-22,Inactive,580
+S0386,IMRAN SHARMA,D10,Technician,Full-time,8,2024-05-31,Actve,330
+S0387,FARHAN SHAH,D10,Technician,Part-time,8,2023-04-12,Active,3200
+S0388,Maria Banerjee,D10,Technician,Full-time,18,2015-06-08,Active,490
+S0389,Sara Sharma,D10,Technician,Part-time,18,2012-08-10,Active,450
+S0390,Neha Pillai,D10,Technician,Full-time,3,2019-01-02,Active,390
+S0391,Arjun Naik,D11,Nurse,Full-time,13,18/09/2015,Active,470
+S0392,Kunal Mishra,D11,NURSE,Contract,0,2019/07/12,null,530
+S0393,Nikhil Das,D20,Technician,Full-time,18,2012-04-01,Active,520
+S0394,Shruti Patel,D11,Technician,Part-time,14,2012-10-13,Active,540
+S0395,Zoya Reddy,D11,Technician,Full-time,19,2009-08-01,Active,630
+S0084,Thomas Verma,D01,Technician,Contract,18,2027-11-06,Active,550
+S0454,"Shah, Maria",D01,Nurse,Full-time,14,2019-03-07,Active,420
+S0396,Sunita Bose,D11,Technician,Full-time,9,2028-10-18,Inactive,320
+S0397,MANISH CHATTERJEE,D11,technician,full-time,5,2025-04-02,Active,380
+S0398,Sneha Pandey,D11,Technician,Full-time,5,2024-02-29,Active,260
+S0399,Karan Shah,D11,Technician,Full-time,15,2018-03-13,Active,480
+S0400,Karan Mehta,D11,Technician,Full-time,21,2010-06-07,Activ,530
+S0401,Fatima Malhotra,D11,Technican,Part-time,120,2016/04/08,Active,390
+S0402,"Shinde, Vihaan",D11,Technician,Part-time,6,16-Oct-2015,Active,-580
+S0403,Sandeep Jadhav,D11,Technician,Contract,8 yrs,2021-12-20,Active,0
+S0404,Pooja Khan,D11,Technician,Full-time,16,12-30-2012,Active,490
+S0405,Kunal Patel,D11,Techncian,Contract,11,2016-10-21,Active,480
+S0406,Dr. Rajesh Kulkarni,D12,Doctor,Contract,13,2016-11-25,Active,17500
+S0407,Dr. Lakshmi Rao,D12,Doctor,Full-time,11,2023-03-30,Active,1520
+S0408,"Nair, Amit",D12,Doctor,Full-time,8,2025-01-12,Active,1230
+S0409,Dr. Aarav Shah,D12,Doctor,Full-time,8,2022-08-01,Active,2110
+S0410,Kavita Das,D12,Doctor,Part-time,19,11.07.2013,Active,2170
+S0411,Dr. Mohammed Thakur,D12,Doctor,Full-time,21,2008-05-31,Inactive,1520
+S0412,Dr. Riya Mishra,D12,Doctor,Full-time,14,2018-12-19,Active,1500
+S0413,Anjali Pillai,D12,Doctor,Contract,20,2016-10-21,Active,2140
+S0414,Sandeep Sharma,D12,Doctor,Full-time,5,2024-11-04,Active,1550
+S0415,Maria Gupta,D12,,Full-time,27,2008-08-26,Active,2130
+S0416,harish shinde,D12,Nurse,PT,10,2019-06-23,Active,430
+S0417,Manish Shaikh,D12,Nurse,Full-time,-4,2014-12-18,Active,490
+S0418,Isha Thakur,D12,Nurse,Full-time,12,2017-04-10,Active,660
+S0419,rajesh mishra,D12,Nurse,Full-time,18,2014-08-28,Active,630
+S0420,Thomas Menon,D12,Nurse,Full-time,20,2009-05-28,Actve,660
+S0421,Nikhil Bose,D12,Nurse,,9,2022-05-18,Active,450
+S0422,Arjun Das,D12,Nurse,Full-time,11,2008-03-19,Active,680
+S0423,Meera Bose,D12,Nurse,Full-time,16,2012-02-15,Inactive,510
+S0424,VIKRAM MEHTA,D12,Nurse,Full-time,10,2020-09-03,ACTIVE,470 INR
+S0425,Pooja Fernandes,D12,Nurse,Fulltime,15 yrs,2018-07-31,Active,
+S0426,Joseph Sharma,D12,Nurse,Full-time,15,2018-03-14,Active,null
+S0406,Dr. Rajesh Kulkarni,D12,Doctor,Contract,13,2016-11-25,Active,17500
+S0427,Divya Joshi,D12,Nurse,Part-time,6,2016-05-23,Active,560
+S0428,priya more,D12,Nurse,Full-time,13,2015/01/31,Active,560
+S0429,Vihaan  Khan,D12,Nurse,Part-time,120,2022-11-15,Active,430
+S0430,Amit Mehta,D12,Nusre,Ful-time,2,2018-09-20,Active,540
+S0431,Deepak Verma,D12,Nurse,Full-time,6,14/08/2022,Active,400
+S0432,"Khan, Divya",D12,Nurse,Full-time,14,2016-05-22,Inactive,650
+S0433,Karan Fernandes,D12,Nurse,Full-time,-1,N/A,Active,Rs. 730
+S0434,Pooja Agarwal,D12,Nurse,Full-time,15,2018-06-30,Active,610
+S0435,Kunal Chopra,D12,Nurse,Contract,6,2022-05-11,Active,380
+S0436,Anita Shinde,D12,Nurse,Part-time,12,2020-02-03,null,510
+S0437,AMIT GUPTA,D12,Nurse,Full-time,21,2010-09-09,A,580
+S0438,Farhan Yadav,D12,Nurse,Full-time,9,2020-04-22,Active,460
+S0439,Zoya Pawar,D12,Nurse,Full-time,8,2019-11-13,Active,-390
+S0440,Shruti  Singh,D12,Nurse,Full-time,18,01-22-2009,Active,630
+S0441,Arjun  Deshmukh,D12,Technician,Contract,-5,2009-03-13,Active,580
+S0442,lakshmi das,,NA,Full-time,4,2019-09-05,Active,360
+S0443,Sunita Pawar,D0,Technician,Part-time,24,2009-06-13,Active,580
+S0444,"Bhat, Rajesh",D12,Technician,Full-time,5 yrs,25-Jan-2025,Active,320
+S0445,Grace Chatterjee,D12,Technician,Part-time,7,2024-11-13,Active,480
+S0446,Anil More,D12,Technician,full-time,6,2013-03-03,Inactive,400
+S0447,Shruti Nair,D12,Technician,Part-time,3,25.06.2023,Active,290
+S0448,,D12,Tech,Full-time,22,2011-09-20,Active,630
+S0449,Deepak Kapoor,D12,Technician,Part-time,13,2016-03-18,Active,440
+S0450,Priya Bhat,D12,Technician,Full-time,17,2009-12-11,Active,450

@@ -1,0 +1,15 @@
+Department_ID,Department_Name,Department_Type,Hospital_Building,Department_Capacity,Department_Manager,Operating_Hours
+D01,ER,Emergency,Main Block,5000,S0002,24x7
+D02,icu,Inpatient,Main Block,30,S0099,24/7
+D13,Laboratory ,Outpatinet,MainBlock,0,S0367,24x7
+D03,Cardiology,Inpatient,block a,32,S0147,24x7
+D04, Orthopedics,In-patient,Block A,32,S0179,NA
+D05,Neurology,Inpatient,Block B,24,S0206,24x7
+D06,Gen Medicine,Inpatient,Block B,-,S0236,24x7
+D07,Pediatric,Inpatient,,24,S0284,24 hrs
+D10,Laboratory ,Outpatinet,MainBlock,0,S0367,24x7
+D08,General Surgery,Inpatient,Block A,-10,None,Open 24 hours
+D09,Radiology,Outpatient,Main Block,120,S0349,8am-8pm
+D10,Laboratory ,Outpatinet,MainBlock,0,S0367,24x7
+D11,Pharmacy,Outpatinet,Annex,400,S0391,08:00-22:00
+D12,Outpatient Clinic,Outpatient,Annex,150,S0415,9 to 5

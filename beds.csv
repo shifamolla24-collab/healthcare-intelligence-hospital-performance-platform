@@ -1,0 +1,313 @@
+Bed_ID,Department_ID,Ward_Name,Bed_Type,Bed_Status,Operational_Flag,Daily_Bed_Cost
+B001,D01,ER Bay A,Emergency,Available,Yes,5800
+B002,D01,ER Bay B,Emergency,Available,Yes,7550
+B003,D01,ER Observation,Emergency,Available,Yes,6950
+B100,D04,Ortho Ward 2,General,Available,Yes,3500
+B004,D01,ER Bay A,Emergency,Available,1,7850
+B005,D01,null,Emergncy,Available,Yes,6100
+B006,D01,ER Observation,Emergency,Available,Yes,6500
+B007,D01,ER Bay A,Emergency,Available,Yes,7200
+B063,D13,Cardiac Ward,Gen,Available,Yes,2200
+B008,D01,ER Bay B,Emergency,Available,Yes,7400
+B009,D01,ER Observation,Emergency,Available,Yes,null
+B010,D01,ER Bay-A,Emergency,AVAILABLE,Yes,5800
+B011,D01,ER Bay B,Emergency,Available,Yes,760000
+B012,D01,ER Observation,,Available,Yes,5200
+B013,D01,ER Bay A,Emergency,Available,TRUE,6750
+B014,D01,ER Bay B,Emergency,Available,Yes,7150
+B015,D01,ER Observation,Emergency,Available,Yes,5550
+B016,D01,ER Bay A,Emergency,Available,1,5300
+B017,D01,ER Bay B,Emergency,Available,NA,7700
+B018,D01,ER Observation,Emergency,Available,Yes,-
+B019,D01,ER Bay A,Emergency,Available,Yes,6300/-
+B020,D01,ER Bay B,Emergency,Available,Yes,?
+B021,D01,ER Observation,Emergency,Available,Yes,INR 6250
+B022,D01,ER Bay A,Emergency,Available,Yes,6550
+B023,D01,ER Bay B,Emergency,Available,Yes,6800
+B024,D01,ER Observation,Emergency,Available,Yes,6350
+B025,D01,ER Bay A,ER,Available,Yes,7400
+B026,D01,  ER Bay B  ,Emergency,Available,Yes,7050
+B027,D01,ER Observation,Emergency,Available,Yes,8000/-
+B028,D01,ER Bay A,Emergency,Available,,5150
+B029,D01,ER Bay B,Emergency,Maintenance,No,7850
+B030,D01,ER Observation,Emergency,Available,yes,INR 5300
+B031,D02,ICU East,ICU,Available,Yes,13550
+B032,D02,ICU West,ICU,Available,Yes,16350
+B033,D02,ICU East,ICU,NULL,Yes,12150
+B034,D02,ICU-West,ICU,Available,Yes,17900
+B035,D02,ICU East,ICU,Available,Yes,15500
+B036,D02,ICU-West,ICU,Available,Yes,14700
+B037,D02,ICU East,Icu,Available,Yes,15400
+B038,D02,ICU West,ICU,Available,Yes,12200
+B039,D02,icu east,ICU,Available,Yes,17150
+B040,D02,ICU West,ICU,available,Yes,16400
+B041,D02,Icu  East,ICU,Available,Yes,17950
+B042,D02,ICU-West,icu,Available,Yes,15550
+B043,D02,ICU East,ICU,Available,Yes,13500
+B044,D02,ICU West,-,Available,Yes,16000
+B045,D02,ICU East,ICU,Avaiable,Yes,13500
+B046,D02,ICU West,ICU,Available,Yes,12650
+B047,D02,ICU East,ICU,Available,Yes,"Rs. 12,200"
+B048,D02,ICU West,ICU,Available,Yes,13950
+B049,D02,ICU East,ICU,Available,Yes,14800
+B050,D02,ICU West,ICU,Available,No,16900/-
+B051,D02,ICU East,ICU,Available,Yes,14300
+B052,D02,icu west,ICU,Inactive,Yes,None
+B053,D02, ,IUC,Available,Yes,null
+B054,D02,ICU West,ICU,Available,Yes,14250
+B055,D02,ICU East,ICU,Available,Yes,12150
+B056,D02,ICU West,ICU,Available,Yes,13150
+B057,D02,ICU East,IUC,Available,Yes,16500
+B058,D13,ICU West,ICU,Maintenance,,13250
+B059,D02,Icu  East,ICU,Available,Yes,14700
+B060,D02,icu west,ICU,Available,Yes,16600
+B133,D05,Neuro Ward,General,Available,Yes,3800
+B061,D03,Cardiac Ward,Gen,maintenance,No,3600
+B062,D03,CCU,General,Availble,Yes,"Rs. 2,200"
+B063,D13,Cardiac Ward,Gen,Available,Yes,2200
+B064,D03,CCU,General,Maintenance,No,3650
+B065,D03,Cardiac Wrad,General,Available,Yes,2750
+B066,D03,CCU,General,Available,Yes,3650
+B067,D03,Cardiac Ward,General,Available,Yes,3300
+B068,D03,CCU,None,Available,Yes,2900
+B069,D03,Cardiac Wrad,General,Available,Yes,2600
+B070,D03,CCU,Private,Available,Yes,7400
+B071,D03,Cardiac Ward,General,Maintenance,No,2300
+B072,D03,CCU,General,Available,Yes,2200/-
+B073,D03,Cardiac Ward,General,NA,Yes,2950
+B074,D03,CCU,General,Inactive,No,3200
+B075,D03,Cardiac Ward,General,Available,NA,2450
+B076,D03,CCU,General,Available,Yes,2950
+B077,D03,Cardiac Ward,General,Maintenance,No,3550
+B078,D03,CCU,General,Available,Yes,NA
+B079,D03,Cardiac Ward,General,Available,Yes,2050
+B080,D03,CCU,General,Available,Yes,2250
+B081,D03,Cardiac Wrad,General,Available,Yes,2050
+B082,D03,CCU,Private,Available,YES,10000
+B083,D03,Cardiac Ward,General,Available,Yes,3600
+B084,D03,CCU,General,Available,Yes,3600
+B085,D03,Cardiac Ward,General,Available,Yes,3150
+B086,D03,CCU,Private,Available,Y,6650
+B087,D03,Cardiac Ward,General,Available,Yes,2600
+B088,D03,CCU,Private,Available,Yes,6700
+B089,D03,Cardiac Ward,General,Available,Yes,3400
+B090,D03,CCU,General,Available,Yes,3650
+B091,D03,Cardiac Ward,General,Available,Yes,2950
+B092,D03,CCU,General,Avaiable,Y,3600
+B093,D04,Ortho Ward 1,General,Available,yes,2300
+B094,D04,Ortho Ward 2,General,Available,Yes,3950
+B095,D04,Ortho Ward 1,General,Available,Yes,2250
+B096,D04,Ortho Ward 2,General,Available,Yes,3700
+B097,D04,Ortho Ward 1,Genral,Available,Yes,2200
+B098,D04,Ortho Ward 2,Private,Available,yes,9150
+B099,D04,Ortho Ward 1,General,,Yes,3500
+B100,D04,Ortho Ward 2,General,Available,Yes,3450
+B101,D04,Ortho Ward 1,GENERAL,Available,Yes,3650
+B102,D04,Ortho Ward 2,General,Available,Yes,3250
+B225,D06,Medical Ward 2,N/A,Available,Yes,"Rs. 3,850"
+B103,D04,Ortho Ward 1,Private,Available,Yes,8450
+B104,D04,Ortho Ward 2,General,Available,No,3900
+B105,D04,Ortho Ward 1,general,AVAILABLE,YES,3800
+B106,D04,Ortho Ward 2,General,Available,Yes,3400
+B107,D04,Ortho Ward 1,General,Inactive,Yes,2350
+B108,D04,Ortho Ward 2,NULL,Available,1,2200
+B109,D04,Ortho Ward 1,General,Available,Yes,2200
+B110,D04,Ortho Ward 2,General,Available,Yes,3500
+B111,D13,  Ortho Ward 1  ,Private,Available,Yes,9050
+B112,D04,Ortho Ward 2,Private,Available,Yes,7350
+B113,D04,Ortho Ward 1,General,Available,Yes,2350
+B114,D04,Ortho Ward 2,General,Available,Yes,2350
+B115,D04,Ortho Ward 1,General,Maintenance,No,2950
+B116,D04,Ortho Ward 2,General,Available,Yes,2300
+B117,D04,Ortho Ward 1,General,Available,Yes,3900
+B118,D04,Ortho Ward 2,General,Inactive,No,-3200
+B119,D04,Ortho Ward 1,General,Available,Yes,3250
+B120,D04,Ortho Ward 2,Private,Maintenance,No,0
+B121,D04,Ortho Ward 1,General,Available,Yes,3550
+B122,D04,Ortho Ward 2,General,Available,Yes,2050
+B123,D04,Ortho Ward 1,General,Available,Yes,0
+B124,D04,?,General,Available,Yes,"Rs. 3,550"
+B125,D05,Neuro Ward,General,Available,Yes,-2800
+B126,D05,Neuro Ward,General,Available,YES,2850
+B127,D05,Neuro Ward,General,Available,Yes,3150
+B128,D05,Neuro Ward,General,Available,Yes,2450
+B129,D05,Neuro Ward,General,Available,No,3300
+B130,D05,Neuro Ward,General,Available,Yes,3250
+B131,D05,Neuro Ward,General,Available,Yes,3100
+B132,D05,Neuro Ward,General,Available,Yes,2400
+B133,D05,Neuro Ward,General,Available,Yes,3800
+B134,D05,Neuro Ward,General,Maintenance,No,INR 3200
+B135,D05,Neuro Ward,General,Available,Yes,2650
+B136,D05,  Neuro Ward  ,General,Available,Yes,3800
+B137,D05,Neuro Ward,General, ,NA,3700
+B138,D05,Neuro Ward,General,Available,Yes,3400
+B139,D05,Neuro Ward,Private,Available,Yes,-9550
+B140,D05,Neuro Ward,GENERAL,Available,Yes,3950
+B096,D04,Ortho Ward 2,General,Available,Yes,3700
+B141,D05,Neuro Ward,General,Inactive,Yes,3750
+B142,D05,Neuro Ward,General,Available,Yes,3650
+B143,D05,Neuro Ward,General,Available,No,205000
+B144,D05,Neuro Ward,General,Available,TRUE,3800
+B145,D05,Neuro Ward,Private,Available,Yes,9600
+B146,D05,Neuro Ward,General,Available,Yes,3700
+B147,D05,Neuro Ward,General,Available,Yes,2950
+B148,D05,Neuro Ward,General,Available,Yes,3700
+B149,D06,Medical Ward 1,General,Maintenance,No,2900
+B150,D06,Medical Ward 2,general,Available,No,2550
+B151,D06,Medical Ward 3,General,Available,Yes,3650
+B152,D06,Medical Ward 1,General,Available,No,220000
+B153,D06,Medical Ward 2,Private,Available,Yes,8350
+B154,D06,Medical Ward 3,General,Available,Yes,2250
+B155,D06,Medical Wrd 1,General,Available,Yes,3700
+B156,D06,  Medical Ward 2  ,Privte,AVAILABLE,Yes,N/A
+B157,D06,Medical Ward 3,General,Available,Yes,3400
+B158,D06,Medical ward 1,General,Available,Yes,3650
+B159,D06,Medical Ward 2,General,Available,TRUE,2150
+B160,D06,Medical Ward 3,General,Available,Yes,3750
+B161,D06,Medical Ward 1,Private,Available,Yes,-6650
+B162,D06,Medical Ward 2,General,Available,TRUE,3000
+B163,D06,Medical Ward 3,General,Available,No,2300
+B164,D06,Medical Ward 1,Gen,Available,Yes,2500
+B165,D06,Medical Ward 2,General,Available,Yes,3600
+B166,D06,Medical Ward 3,General,Available,Yes,2550
+B167,D06,Medical Ward 1 ,Private,Available,Yes,6800
+B168,D06,Medical Ward 2,General,Available,Yes,3950
+B169,D06,Medical Ward 3,Genral ,Available,Yes,3750
+B170,D06,Medical Wrd 1,General,Available,Yes,3250
+B086,D03,CCU,Private,Available,Y,3500
+B171,D06,Medical Ward 2,General,Available,Yes,3350
+B172,D06,Medical Ward 3,Private,Available,Yes,8000
+B173,D06,Medical Wrd 1,General,Available,Yes,2150
+B174,D06,Medical Ward 2,General,Available,Yes,2750
+B175,D06,  Medical Ward 3  ,General,Available,Yes,3050
+B176,D06,Medical Ward 1,General,Available,NA,2400
+B177,D06,Medical Ward 2,General,Avaiable,1,3850
+B091,D03,Cardiac Ward,General,Available,Yes,3500
+B178,D06,Medical Ward 3,General,Inactive,Yes,2900
+B179,D06,Medical Wrd 1,Private,AVAILABLE,Yes,9700
+B180,D06,Medical Ward 2,private,Available,Yes,6800
+B181,D06,,Gen,Available,Yes,2300
+B182,D06,Medical Ward 1,General,Available,Yes,2150
+B183,D06,Medical Ward 2,General,Available,Yes,2700
+B184,D06,Medical Ward 3,General,Available,TRUE,3000
+B185,D06,Medical Ward 1,Private,Available,Yes,6450
+B186,D06,Medical Ward 2,General,Availble,Yes,2600
+B187,D06,Medical Ward 3,General,Maintenance,No,2050
+B188,D06,Medical Ward 1,Private,Available,Yes,7900
+B189,D06,Medical Ward 2,General,Maintenance,No,2600
+B190,D06,Medical Ward 3,General,Available,Yes,3950
+B191,D06,Medical Ward 1,General,Inactive,Yes,null
+B192,D06,Medical Ward 2,Private,Available,Yes,8000
+B193,D06,Medical Ward 3,General,AVAILABLE,Yes,3200
+B194,D06,Medical Ward 1,General,Available,Yes,3400
+B195,D06,Medical Ward 2,General,Available,TRUE,3650
+B196,D06,Medical Ward 3,General,Maintenance,No,385000
+B197,D06,Medical Ward 1,General,Avaiable,Yes,3350
+B198,D06, Medical Ward 2,General,Available,Yes,2550
+B199,D06,Medical Ward 3,General,Available,Yes,3550
+B200,D06,Medical Ward 1,General,Available,Yes,2450
+B201,D06,Medical Ward 2,General,Available,Yes,3450
+B202,D06,Medical Ward 3,General,Available,Yes,"Rs. 3,350"
+B203,D06,Medical ward 1,General,Available,Yes,2650
+B204,D06,Medical Ward 2,General,Available,Yes,3300
+B088,D03,CCU,Private,Available,Yes,6700
+B205,D06,Medical Ward 3,General,Available,Yes,2450
+B206,D06,Medical Ward 1,General,Available,Yes,2150
+B207,D06,Medical Ward 2,General,Available,Yes,3900
+B208,D06,Medical Ward 3,General,available,Yes,3700
+B209,D06,Medical Ward 1,General,Available,,4000
+B210,D06,,General,Inactive,Yes,3700
+B211,D06,Medical Ward 3,General,Available,Yes,3100
+B212,D06,Medical Ward 1,General,Available,Yes,3550
+B213,D06,Medical Ward 2,General,AVAILABLE,Yes,3850
+B214,D99,Medical Ward 3,General,Available,Yes,2400
+B215,D06,Medical Ward 1,General,Available,Yes,3450
+B216,D06,Medical Ward 2,General,Available,Yes,3300
+B217,D06,Medical Ward 3,-,Available,Yes,2900
+B218,D06,Medical Wrd 1,Private,Maintenance,No,7850
+B219,D06,Medical Ward 2,Gen,Available,No,2150
+B220,D06,Medical Ward 3,General,Available,Yes,0
+B221,D06,Medical Ward 1,General,Available,Yes,2800
+B222,D06,Medical Ward 2,General,Available,Yes,2150
+B223,D06,Medical Ward 3,General,Available,Yes,0
+B224,D06,Medical Ward 1,Private,Available,Yes,8050
+B225,D06,Medical Ward 2,N/A,Available,Yes,"Rs. 3,850"
+B226,D06,Medical Ward 3,General,Available,Yes,2650
+B227,D06,Medical Ward 1,General,Available,Yes,2850
+B228,D06,Medical Ward 2,General,Available,Yes,2650
+B229,D07,Pediatric ward,Private,Available,Yes,10000
+B190,D06,Medical Ward 3,General,Available,Yes,3950
+B230,D07,Pediatric Ward,ICU,Available,Yes,3050
+B231,D07,Pediatric Ward,Genral,Available,Y,3100
+B232,D07,Pediatric Ward,General,Maintenance,No,3650
+B233,D07,Pediatric Ward,General,Available,Yes,2000
+B234,D07,Pediatric Ward,General,Available,Yes,3450
+B235,D07,NA,ICU,N/A,Yes,2350
+B236,D07,Pediatric Ward,Private,Available,Yes,6450
+B237,D07,Pediatric Ward,General,Available,Yes,3350
+B238,D07,Paediatric Ward,ICU,Maintenance,No,2500
+B239,D07,Pediatric Ward,General,Available,Yes,NA
+B240,D07,Pediatric Ward,General,Avaiable,Yes,3850
+B178,D06,Medical Ward 3,General,Inactive,Yes,2900
+B241,D07, Pediatric Ward,ICU,Inactive,Yes,
+B242,D07,Pediatric Ward,General,Maintenance,No,2600
+B243,D07,Pediatric Ward,ICU,Available,Yes,0
+B244,D07,Paediatric Ward,General,Inactive,Yes,3100
+B245,D07,Pediatric Ward,General,Available,Yes,INR 3000
+B246,D07,Pediatric Ward,Gen,Available,NULL,-2750
+B023,D01,ER Bay B,Emergency,Available,Yes,6800
+B247,D07,Pediatric ward,General,Available,Yes,3300
+B248,D07,Pediatric Ward,ICU,Maintenance,No,3050
+B249,D07,Pediatric Ward,General,Available,Yes,3400
+B250,D07,Pediatric Ward,General,Inactive,Yes,2900
+B251,D07,Paediatric Ward,Genral ,Available,Yes,3950
+B252,D07,Pediatric Ward,General,Available,Yes,3850
+B253,D08,Surgical Ward 1,General,,Yes,3100
+B254,D08,Surgical Ward 2,General,Available,Yes,3900
+B255,D08,Surgical Ward 1,General,Maintenance,No,3500
+B256,D08,Surgical Ward 2,General,Available,Yes,2750
+B257,D08,Surgical Ward 1,General,Available,Yes,2450
+B258,D08,Surgical Ward 2,General,Maintenance,No,3450
+B259,D08,Surgical Ward 1,General,Available,None,2850
+B260,D08,Surgical Ward 2,General,Available,yes,3500
+B261,D08,Surgical Ward 1,General,Maintenance,No,2200
+B262,D08,Surgical Ward 2,General,AVAILABLE,Yes,3550
+B263,D08,Surgical Ward 1,General,available,Yes,2200
+B264,D08,Surgical Ward 2,General,Available,YES,3600
+B265,D08,Surgical Ward 1,General,Avaiable,Yes,3100
+B266,D08,Surgical Ward 2,General,Available,Yes,3900
+B267,D08,Surgical Ward 1,Private,Available,Yes,INR 9600
+B268,D08,Surgical Ward 2,Private,Available,Yes,8050
+B269,D08,Surgical Ward 1,General,Available,Yes,2400
+B270,D08,Surgical Ward 2,General,Maintenance,No,3650
+B271,D08,Surgical Ward 1,Private,Available,yes,null
+B272,D08,Surgical Ward 2,General,Available,Yes,2450
+B273,D0,Surgical Ward 1,General,Available,Yes,3800
+B274,D08,Surgical Ward 2,General,Available,Yes,3600
+B275,D08,NA,General,Available,Yes,3950
+B276,D08,Surgical Ward 2,General,Maintenance,No,2650
+B277,D08,Surgical Ward 1,General,Available,Yes,3600
+B278,D08,Surgical Ward 2,General,Available,Yes,2550
+B279,D08,,General,AVAILABLE,Yes,2200
+B280,D08,Surgical Ward 2,General,Available,Yes,2500
+B281,D08,Surgical Ward 1,General,Available,Yes,2600
+B175,D06,  Medical Ward 3  ,General,Available,Yes,3500
+B282,D08,Surgical Ward 2,General,Available,Yes,2550
+B283,D08,Surgical Ward 1,General,Available,Yes,2550
+B284,D08,Surgical Ward 2,General,Maintenance,No,2300
+B285,D08,Surgical Ward 1,General,Available,Yes,2300
+B286,D08,Surgical Ward 2,General,Available,Yes,NA
+B287,D08,Surgical Ward 1,General,Available,Yes,3400
+B288,D08,Surgical Ward 2,General,Available,Yes,2350
+B289,D08,Surgical Ward 1,Private,Available,Yes,7100
+B290,D08,Surgical Ward 2,General,Inactive,Yes,3250
+B291,D08,Surgical Ward 1,General,Available,Yes,3950
+B292,D08,Surgical Ward 2,general,Available,Yes,3750
+B293,D08,?,General,Availble,Yes,2500
+B294,D08,Surgical Ward 2,General,Available,yes,2200
+B295,D08,Surgical Ward 1,General,Available,Yes,2800
+B296,D08,Surgical Ward 2 ,General,Available,Yes,INR 2150
+B297,D08,Surgical Ward 1,General,Available,Yes,4000
+B298,D08,Surgical Ward 2,General,Available,Y,2300
+B299,D08,Surgical Ward 1,General,Available,Yes,3250
+B300,D08,Surgical Ward 2,Genral ,Available,Yes,2700
