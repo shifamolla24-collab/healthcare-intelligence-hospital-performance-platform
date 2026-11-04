@@ -1,0 +1,3 @@
+Shift_ID,Staff_ID,Department_ID,Shift_Date,Shift_Type,Scheduled_Start,Scheduled_End,Actual_Start,Actual_End,Scheduled_Hours,Actual_Hours,Overtime_Hours,Absence_Flag
+SH003818,S0357,D09,2026-09-28,Morning,2026-09-28 07:00:00,2026-09-28 15:00:00,2026-09-28 02:33:00,2026-09-28 15:03:00,8,12.5,4.5,No
+SH003818,S0357,D09,2026-09-28,Morning,2026-09-28 07:00:00,2026-09-28 15:00:00,2026-09-28 06:55:48,2026-09-28 15:03:00,8,8.12,0.12,No

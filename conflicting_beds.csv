@@ -1,0 +1,9 @@
+Bed_ID,Department_ID,Ward_Name,Bed_Type,Bed_Status,Operational_Flag,Daily_Bed_Cost
+B100,D04,Ortho Ward 2,General,Available,Yes,3500
+B086,D03,CCU,Private,Available,Yes,6650
+B091,D03,Cardiac Ward,General,Available,Yes,2950
+B100,D04,Ortho Ward 2,General,Available,Yes,3450
+B086,D03,CCU,Private,Available,Yes,3500
+B175,D06,Medical Ward 3,General,Available,Yes,3050
+B091,D03,Cardiac Ward,General,Available,Yes,3500
+B175,D06,Medical Ward 3,General,Available,Yes,3500
