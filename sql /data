@@ -1,0 +1,628 @@
+CREATE DATABASE HEALTHCARE;
+USE HEALTHCARE;
+-- SECTION A - PATIENT FLOW AND WAITING TIMES
+-- Q1. Where do patients wait the longest? Average wait per stage and triage level.
+SELECT
+    f.Event_Type AS stage,
+    e.Triage_Level,
+    COUNT(*) AS events,
+    ROUND(AVG(f.Waiting_Time_Minutes), 1) AS avg_wait_min,
+    MAX(f.Waiting_Time_Minutes) AS max_wait_min
+
+FROM patient_flow_events_clean AS f
+INNER JOIN encounters_clean AS e
+    ON e.Encounter_ID = f.Encounter_ID
+WHERE
+    f.Waiting_Time_Minutes IS NOT NULL
+    AND f.Event_Status <> 'Cancelled'
+    AND f.Event_Type <> 'Unknown'
+    AND e.Triage_Level <> 'Unknown'
+GROUP BY
+    f.Event_Type,
+    e.Triage_Level
+ORDER BY
+    f.Event_Type,
+    avg_wait_min DESC;
+    
+    -- Q2. Which stage of the journey is the bottleneck? Share of delayed events per stage.
+    SELECT Event_Type AS stage,
+       COUNT(*) AS events,
+       SUM(CASE WHEN Event_Status = 'Delayed' THEN 1 ELSE 0 END) AS delayed_events,
+       ROUND(100.0 * SUM(CASE WHEN Event_Status = 'Delayed' THEN 1 ELSE 0 END) / COUNT(*), 1) AS delayed_pct,
+       ROUND(AVG(Waiting_Time_Minutes), 1) AS avg_wait_min
+FROM patient_flow_events_clean
+WHERE Event_Status IN ('Completed', 'Delayed') AND Event_Type <> 'Unknown'
+GROUP BY Event_Type
+ORDER BY delayed_pct DESC;
+
+-- Q3. Safety check: how many Critical patients waited more than 10 minutes for a doctor?
+SELECT COUNT(*) AS critical_patients,
+       SUM(CASE WHEN f.Waiting_Time_Minutes > 10 THEN 1 ELSE 0 END) AS waited_over_10_min,
+       ROUND(100.0 * SUM(CASE WHEN f.Waiting_Time_Minutes > 10 THEN 1 ELSE 0 END) / COUNT(*), 1) AS pct_over_10_min,
+       MAX(f.Waiting_Time_Minutes) AS longest_wait_min
+FROM patient_flow_events_clean f
+JOIN encounters_clean e ON e.Encounter_ID = f.Encounter_ID
+WHERE f.Event_Type = 'Doctor' AND e.Triage_Level = 'Critical' AND f.Waiting_Time_Minutes IS NOT NULL;
+
+-- Q4. How long from walking into the ER until a doctor starts seeing the patient (door-to-doctor)?
+USE healthcare;
+SELECT
+    e.Triage_Level,
+    COUNT(DISTINCT e.Encounter_ID) AS patients,
+
+    ROUND(
+        AVG(
+            TIMESTAMPDIFF(
+                SECOND,
+                e.Admission_DateTime,
+                d.Event_Start_Time
+            ) / 60.0 + d.Waiting_Time_Minutes
+        ),
+        1
+    ) AS door_to_doctor_min
+
+FROM encounters_clean AS e
+
+INNER JOIN patient_flow_events_clean AS d
+    ON d.Encounter_ID = e.Encounter_ID
+    AND d.Event_Type = 'Doctor'
+
+WHERE
+    e.Department_ID = 'D01'
+    AND d.Waiting_Time_Minutes IS NOT NULL
+    AND e.Triage_Level <> 'Unknown'
+    AND e.Admission_DateTime IS NOT NULL
+    AND d.Event_Start_Time IS NOT NULL
+
+GROUP BY
+    e.Triage_Level
+
+ORDER BY
+    door_to_doctor_min DESC;
+    
+-- alterUSE healthcare;
+
+
+-- Q5 Which hours of the day are the busiest and when does the doctor wait peak (ER)?
+WITH arr AS (
+    SELECT
+        HOUR(Admission_DateTime) AS hr,
+        COUNT(*) AS arrivals
+    FROM encounters_clean
+    WHERE Department_ID = 'D01'
+      AND Admission_DateTime IS NOT NULL
+    GROUP BY HOUR(Admission_DateTime)
+),
+
+wt AS (
+    SELECT
+        HOUR(Event_Start_Time) AS hr,
+        ROUND(AVG(Waiting_Time_Minutes), 1) AS avg_doctor_wait_min
+    FROM patient_flow_events_clean
+    WHERE Event_Type = 'Doctor'
+      AND Department_ID = 'D01'
+      AND Waiting_Time_Minutes IS NOT NULL
+      AND Event_Start_Time IS NOT NULL
+    GROUP BY HOUR(Event_Start_Time)
+)
+
+SELECT
+    arr.hr AS hour_of_day,
+    arr.arrivals,
+    wt.avg_doctor_wait_min
+
+FROM arr
+INNER JOIN wt
+    ON wt.hr = arr.hr
+
+ORDER BY arr.hr;
+
+ -- Q6. Is the ER getting better or worse? Monthly average doctor wait.
+SELECT SUBSTR(Event_Start_Time, 1, 7) AS month,
+       COUNT(*) AS events,
+       ROUND(AVG(Waiting_Time_Minutes), 1) AS avg_doctor_wait_min
+FROM patient_flow_events_clean
+WHERE Event_Type = 'Doctor' AND Waiting_Time_Minutes IS NOT NULL AND Event_Start_Time IS NOT NULL
+GROUP BY 1
+ORDER BY 1;
+
+-- Q7. Does a long doctor wait lead to a longer stay in the ER?
+SELECT CASE WHEN f.Waiting_Time_Minutes < 30  THEN '1) under 30 min'
+            WHEN f.Waiting_Time_Minutes < 60  THEN '2) 30-60 min'
+            WHEN f.Waiting_Time_Minutes < 120 THEN '3) 60-120 min'
+            ELSE '4) over 120 min' END AS doctor_wait_band,
+       COUNT(*) AS patients,
+       ROUND(AVG(e.Length_of_Stay_Hours), 1) AS avg_stay_hours
+FROM patient_flow_events_clean f
+JOIN encounters_clean e ON e.Encounter_ID = f.Encounter_ID
+WHERE f.Event_Type = 'Doctor' AND e.Department_ID = 'D01'
+  AND f.Waiting_Time_Minutes IS NOT NULL AND e.Length_of_Stay_Hours IS NOT NULL
+GROUP BY 1
+ORDER BY 1;
+
+-- Q8. Which 10 days had the worst ER doctor waiting time? (minimum 20 events, ranked)
+WITH daily AS (
+  SELECT SUBSTR(Event_Start_Time, 1, 10) AS day, COUNT(*) AS events, ROUND(AVG(Waiting_Time_Minutes), 1) AS avg_wait
+  FROM patient_flow_events_clean
+  WHERE Event_Type = 'Doctor' AND Department_ID = 'D01' AND Waiting_Time_Minutes IS NOT NULL AND Event_Start_Time IS NOT NULL
+  GROUP BY 1 HAVING COUNT(*) >= 20)
+SELECT d.day, c.Day_Name, d.events, d.avg_wait,
+       RANK() OVER (ORDER BY d.avg_wait DESC) AS worst_rank
+FROM daily d JOIN calendar_clean c ON c.Full_Date = d.day
+ORDER BY worst_rank
+LIMIT 10;
+
+-- SECTION B - BED CAPACITY 
+
+-- Q9. How busy is each department's bed capacity? Utilisation % = occupied bed-hours / available bed-hours.
+--     (301 days = 1 Jan to 28 Oct 2026; patients still in a bed are counted until 29 Oct 00:00)
+SELECT
+    d.Department_Name,
+    COUNT(DISTINCT b.Bed_ID) AS total_beds,
+    ROUND(
+        100.0 * SUM(
+            TIMESTAMPDIFF(
+                SECOND,
+                o.Admission_Time,
+                COALESCE(o.Discharge_Time, '2026-10-29 00:00:00')
+            ) / 3600.0
+        ) / (COUNT(DISTINCT b.Bed_ID) * 301 * 24),
+        1
+    ) AS utilisation_pct
+FROM conflicting_beds AS b
+INNER JOIN departments_clean AS d
+    ON d.Department_ID = b.Department_ID
+LEFT JOIN bed_occupancy_clean AS o
+    ON o.Bed_ID = b.Bed_ID
+WHERE
+    o.Admission_Time IS NOT NULL
+    AND o.Admission_Time < '2026-10-29 00:00:00'
+GROUP BY
+    d.Department_ID,
+    d.Department_Name
+ORDER BY
+    utilisation_pct DESC;
+    
+    
+    -- Q10. Is the ER running out of beds? Monthly share of ER bed requests that waited more than 2 hours (boarding).
+SELECT SUBSTR(Event_Start_Time, 1, 7) AS month,
+       COUNT(*) AS bed_requests,
+       SUM(CASE WHEN Waiting_Time_Minutes > 120 THEN 1 ELSE 0 END) AS waited_over_2h,
+       ROUND(100.0 * SUM(CASE WHEN Waiting_Time_Minutes > 120 THEN 1 ELSE 0 END) / COUNT(*), 1) AS boarding_pct,
+       MAX(Waiting_Time_Minutes) AS longest_wait_min
+FROM patient_flow_events_clean
+WHERE Event_Type = 'Bed' AND Department_ID = 'D01' AND Waiting_Time_Minutes IS NOT NULL AND Event_Start_Time IS NOT NULL
+GROUP BY 1
+ORDER BY 1;
+
+-- Q11. Which department takes longest to get a bed ready again (bed turnaround)?
+SELECT d.Department_Name, COUNT(*) AS stays,
+       ROUND(AVG(o.Bed_Turnaround_Minutes), 1) AS avg_turnaround_min,
+       MAX(o.Bed_Turnaround_Minutes) AS max_turnaround_min
+FROM bed_occupancy_clean o
+JOIN conflicting_beds b ON b.Bed_ID = o.Bed_ID
+JOIN departments_clean d ON d.Department_ID = b.Department_ID
+WHERE o.Bed_Turnaround_Minutes IS NOT NULL
+GROUP BY d.Department_Name
+ORDER BY avg_turnaround_min DESC;
+
+-- Q12. Where is capacity sitting idle? Departments using under 35% of their beds.
+SET @window_end = '2026-10-29 00:00:00';
+SET @window_start = DATE_SUB(@window_end, INTERVAL 301 DAY);
+WITH util AS (
+    SELECT
+        d.Department_Name,
+        COUNT(DISTINCT b.Bed_ID) AS beds,
+
+        100.0 * COALESCE(
+            SUM(
+                CASE
+                    WHEN o.Admission_Time IS NOT NULL
+                         AND o.Admission_Time < @window_end
+                    THEN GREATEST(
+                        0,
+                        TIMESTAMPDIFF(
+                            SECOND,
+                            GREATEST(o.Admission_Time, @window_start),
+                            LEAST(
+                                COALESCE(o.Discharge_Time, @window_end),
+                                @window_end
+                            )
+                        )
+                    )
+                    ELSE 0
+                END
+            ),
+            0
+        ) / (
+            COUNT(DISTINCT b.Bed_ID) * 301 * 24 * 3600.0
+        ) AS utilisation_pct
+    FROM conflicting_beds AS b
+    INNER JOIN departments_clean AS d
+        ON d.Department_ID = b.Department_ID
+    LEFT JOIN bed_occupancy_clean AS o
+        ON o.Bed_ID = b.Bed_ID
+        AND o.Admission_Time < @window_end
+        AND (
+            o.Discharge_Time IS NULL
+            OR o.Discharge_Time > @window_start
+        )
+    GROUP BY
+        d.Department_ID,
+        d.Department_Name
+)
+SELECT
+    Department_Name,
+    beds,
+    ROUND(utilisation_pct, 1) AS utilisation_pct,
+
+    ROUND(
+        beds * (35 - utilisation_pct) / 100.0,
+        1
+    ) AS beds_below_35pct_target
+FROM util
+WHERE utilisation_pct < 35
+ORDER BY utilisation_pct ASC;
+
+-- Q13. How many beds are offline (maintenance / inactive) and what do they cost per day?
+SELECT
+    c.Full_Date,
+    c.Day_Name,
+
+    COUNT(DISTINCT o.Bed_ID) AS beds_in_use_at_noon,
+
+    ROUND(
+        100.0 * COUNT(DISTINCT o.Bed_ID) /
+        (
+            SELECT COUNT(DISTINCT Bed_ID)
+            FROM conflicting_beds
+            WHERE Bed_Status <> 'Inactive'
+        ),
+        1
+    ) AS pct_of_open_beds
+FROM calendar_clean AS c
+LEFT JOIN bed_occupancy_clean AS o
+    ON CONCAT(c.Full_Date, ' 12:00:00') >= o.Admission_Time
+    AND (
+        o.Discharge_Time IS NULL
+        OR CONCAT(c.Full_Date, ' 12:00:00') < o.Discharge_Time
+    )
+WHERE c.Full_Date BETWEEN '2026-01-01' AND '2026-10-28'
+GROUP BY
+    c.Full_Date,
+    c.Day_Name
+ORDER BY
+    beds_in_use_at_noon DESC
+LIMIT 10;
+
+-- Q14. Which 10 days had the most beds in use at noon (hospital-wide pressure days)?
+SELECT c.Full_Date, c.Day_Name,
+       COUNT(o.Occupancy_ID) AS beds_in_use_at_noon,
+       ROUND(100.0 * COUNT(o.Occupancy_ID) / (SELECT COUNT(*) FROM beds WHERE Bed_Status <> 'Inactive'), 1) AS pct_of_open_beds
+FROM calendar_clean c
+LEFT JOIN bed_occupancy_clean o
+       ON (c.Full_Date || ' 12:00:00') >= o.Admission_Time
+      AND (o.Discharge_Time IS NULL OR (c.Full_Date || ' 12:00:00') < o.Discharge_Time)
+WHERE c.Full_Date BETWEEN '2026-01-01' AND '2026-10-28'
+GROUP BY c.Full_Date, c.Day_Name
+ORDER BY beds_in_use_at_noon DESC
+LIMIT 10;
+
+-- SECTION C - STAFFING AND WORKFORCE
+
+-- Q15. Which department and shift has the biggest nurse and doctor gap? (positive = shortage)
+SELECT d.Department_Name, r.Shift_Type,
+       SUM(r.Required_Nurses  - r.Available_Nurses)  AS nurse_gap,
+       SUM(r.Required_Doctors - r.Available_Doctors) AS doctor_gap
+FROM staffing_requirements_clean r
+JOIN departments_clean d ON d.Department_ID = r.Department_ID
+WHERE r.Required_Nurses IS NOT NULL AND r.Available_Nurses IS NOT NULL
+  AND r.Required_Doctors IS NOT NULL AND r.Available_Doctors IS NOT NULL
+GROUP BY d.Department_Name, r.Shift_Type
+ORDER BY nurse_gap DESC;
+
+-- Q16. For which patient acuity level is the hospital short-staffed most often?
+SELECT Acuity_Level, COUNT(*) AS slots,
+       ROUND(100.0 * SUM(CASE WHEN Available_Nurses  < Required_Nurses  THEN 1 ELSE 0 END) / COUNT(*), 1) AS pct_slots_short_of_nurses,
+       ROUND(100.0 * SUM(CASE WHEN Available_Doctors < Required_Doctors THEN 1 ELSE 0 END) / COUNT(*), 1) AS pct_slots_short_of_doctors
+FROM staffing_requirements_clean
+WHERE Required_Nurses IS NOT NULL AND Available_Nurses IS NOT NULL
+  AND Required_Doctors IS NOT NULL AND Available_Doctors IS NOT NULL
+GROUP BY Acuity_Level
+ORDER BY pct_slots_short_of_nurses DESC;
+
+-- Q17. In the ER, what percentage of the required staff do we actually have, per shift?
+SELECT Shift_Type,
+       SUM(Required_Nurses)  AS nurses_needed, SUM(Available_Nurses)  AS nurses_available,
+       ROUND(100.0 * SUM(Available_Nurses)  / SUM(Required_Nurses), 1)  AS nurse_coverage_pct,
+       SUM(Required_Doctors) AS doctors_needed, SUM(Available_Doctors) AS doctors_available,
+       ROUND(100.0 * SUM(Available_Doctors) / SUM(Required_Doctors), 1) AS doctor_coverage_pct
+FROM staffing_requirements_clean
+WHERE Department_ID = 'D01'
+  AND Required_Nurses IS NOT NULL AND Available_Nurses IS NOT NULL
+  AND Required_Doctors IS NOT NULL AND Available_Doctors IS NOT NULL
+GROUP BY Shift_Type
+ORDER BY nurse_coverage_pct;
+
+
+-- Q18. How much overtime is each department working and what does it cost? (assumes overtime pays 1.5 x hourly cost)
+SELECT d.Department_Name,
+       ROUND(SUM(s.Overtime_Hours), 1) AS overtime_hours,
+       ROUND(SUM(s.Overtime_Hours * st.Hourly_Cost * 1.5), 0) AS est_overtime_cost
+FROM staff_shifts_clean s
+JOIN staff_clean st ON st.Staff_ID = s.Staff_ID
+JOIN departments_clean d ON d.Department_ID = s.Department_ID
+WHERE s.Overtime_Hours > 0 AND st.Hourly_Cost IS NOT NULL
+GROUP BY d.Department_Name
+ORDER BY est_overtime_cost DESC;
+
+-- Q19. Which shift type and department have the highest absence rate?
+SELECT d.Department_Name, s.Shift_Type, COUNT(*) AS shifts,
+       ROUND(100.0 * SUM(CASE WHEN s.Absence_Flag = 'Yes' THEN 1 ELSE 0 END) / COUNT(*), 1) AS absence_pct
+FROM staff_shifts_clean s
+JOIN departments_clean d ON d.Department_ID = s.Department_ID
+GROUP BY d.Department_Name, s.Shift_Type
+HAVING COUNT(*) >= 100
+ORDER BY absence_pct DESC
+LIMIT 10;
+
+-- Q20. Who is at burn-out risk? Staff whose overtime is more than 2x their department's average.
+WITH per_staff AS (
+  SELECT s.Staff_ID, st.Staff_Role, s.Department_ID, ROUND(SUM(s.Overtime_Hours), 1) AS overtime_hours
+  FROM staff_shifts_clean s JOIN staff_clean st ON st.Staff_ID = s.Staff_ID
+  GROUP BY s.Staff_ID, st.Staff_Role, s.Department_ID),
+flagged AS (
+  SELECT *, ROUND(AVG(overtime_hours) OVER (PARTITION BY Department_ID), 1) AS dept_avg_overtime
+  FROM per_staff)
+SELECT Staff_ID, Staff_Role, Department_ID, overtime_hours, dept_avg_overtime
+FROM flagged
+WHERE overtime_hours > 2 * dept_avg_overtime
+ORDER BY overtime_hours DESC
+LIMIT 10;
+
+-- Q21. Workforce mix: active headcount, contract share and average hourly cost by department.
+SELECT d.Department_Name,
+       COUNT(*) AS active_staff,
+       SUM(CASE WHEN st.Staff_Role = 'Doctor' THEN 1 ELSE 0 END) AS doctors,
+       SUM(CASE WHEN st.Staff_Role = 'Nurse'  THEN 1 ELSE 0 END) AS nurses,
+       ROUND(100.0 * SUM(CASE WHEN st.Employment_Type = 'Contract' THEN 1 ELSE 0 END) / COUNT(*), 1) AS contract_pct,
+       ROUND(AVG(st.Hourly_Cost), 0) AS avg_hourly_cost
+FROM staff_clean st
+JOIN departments_clean d ON d.Department_ID = st.Department_ID
+WHERE st.Employment_Status = 'Active'
+GROUP BY d.Department_Name
+ORDER BY active_staff DESC;
+
+-- Q22. On which 10 ER shifts was one nurse covering the most expected patients?
+SELECT Requirement_Date, Shift_Type,
+       SUM(Expected_Patients) AS expected_patients,
+       SUM(Available_Nurses)  AS nurses_available,
+       ROUND(1.0 * SUM(Expected_Patients) / NULLIF(SUM(Available_Nurses), 0), 2) AS patients_per_nurse
+FROM staffing_requirements_clean
+WHERE Department_ID = 'D01' AND Expected_Patients IS NOT NULL AND Available_Nurses IS NOT NULL
+GROUP BY Requirement_Date, Shift_Type
+HAVING SUM(Available_Nurses) > 0
+ORDER BY patients_per_nurse DESC
+LIMIT 10;
+ 
+ -- SECTION D - PATIENT OUTCOMES
+
+ -- Q23. Who comes back within 30 days? Readmission rate by chronic condition and age group.
+SELECT p.Chronic_Condition_Flag AS chronic,
+       CASE WHEN p.Age IS NULL THEN 'Unknown' WHEN p.Age < 18 THEN '0-17' WHEN p.Age < 65 THEN '18-64' ELSE '65+' END AS age_group,
+       COUNT(*) AS visits,
+       ROUND(100.0 * SUM(CASE WHEN e.Readmission_Flag = 'Yes' THEN 1 ELSE 0 END) / COUNT(*), 1) AS readmission_pct
+FROM encounters_clean e
+JOIN patients_clean p ON p.Patient_ID = e.Patient_ID
+WHERE e.Readmission_Flag <> 'Unknown' AND p.Chronic_Condition_Flag <> 'Unknown'
+GROUP BY 1, 2
+ORDER BY readmission_pct DESC;
+
+-- Q24. Which diagnoses have the most readmissions? (diagnoses with at least 500 visits)
+SELECT Diagnosis_Category, COUNT(*) AS visits,
+       SUM(CASE WHEN Readmission_Flag = 'Yes' THEN 1 ELSE 0 END) AS readmitted,
+       ROUND(100.0 * SUM(CASE WHEN Readmission_Flag = 'Yes' THEN 1 ELSE 0 END) / COUNT(*), 1) AS readmission_pct
+FROM encounters_clean
+WHERE Diagnosis_Category <> 'Unknown' AND Readmission_Flag <> 'Unknown'
+GROUP BY Diagnosis_Category
+HAVING COUNT(*) >= 500
+ORDER BY readmission_pct DESC;
+
+-- Q25. How often are patients transferred out, by triage level?
+SELECT Triage_Level, COUNT(*) AS visits,
+       SUM(CASE WHEN Admission_Status = 'Transferred' THEN 1 ELSE 0 END) AS transferred,
+       ROUND(100.0 * SUM(CASE WHEN Admission_Status = 'Transferred' THEN 1 ELSE 0 END) / COUNT(*), 1) AS transfer_pct
+FROM encounters_clean
+WHERE Triage_Level <> 'Unknown'
+GROUP BY Triage_Level
+ORDER BY transfer_pct DESC;
+
+-- Q26. How long do patients stay, by department (average and longest)?
+SELECT d.Department_Name, COUNT(*) AS visits,
+       ROUND(AVG(e.Length_of_Stay_Hours), 1) AS avg_stay_hours,
+       MAX(e.Length_of_Stay_Hours) AS longest_stay_hours
+FROM encounters_clean e
+JOIN departments_clean d ON d.Department_ID = e.Department_ID
+WHERE e.Length_of_Stay_Hours IS NOT NULL
+GROUP BY d.Department_Name
+ORDER BY avg_stay_hours DESC;
+
+-- Q27. Which diagnoses drive ER volume? (Pareto: cumulative share of ER visits)
+WITH diag AS (
+  SELECT Diagnosis_Category, COUNT(*) AS visits
+  FROM encounters_clean WHERE Department_ID = 'D01' AND Diagnosis_Category <> 'Unknown'
+  GROUP BY Diagnosis_Category)
+SELECT Diagnosis_Category, visits,
+       ROUND(100.0 * visits / SUM(visits) OVER (), 1) AS pct_of_er_visits,
+       ROUND(100.0 * SUM(visits) OVER (ORDER BY visits DESC) / SUM(visits) OVER (), 1) AS cumulative_pct
+FROM diag
+ORDER BY visits DESC;
+ 
+ -- Q28. Which attending doctors carry the heaviest ER caseload? (workload balance)
+SELECT e.Attending_Doctor_ID, st.Staff_Name, COUNT(*) AS er_patients,
+       ROUND(AVG(e.Length_of_Stay_Hours), 1) AS avg_stay_hours,
+       ROUND(100.0 * COUNT(*) / SUM(COUNT(*)) OVER (), 1) AS pct_of_er_caseload
+FROM encounters_clean e
+JOIN staff_clean st ON st.Staff_ID = e.Attending_Doctor_ID
+WHERE e.Department_ID = 'D01'
+GROUP BY e.Attending_Doctor_ID, st.Staff_Name
+ORDER BY er_patients DESC
+LIMIT 10;
+
+-- SECTION E - DEMAND AND PATIENT MIX
+-- Q29. What are the 10 busiest weekday + hour slots for arrivals?
+SELECT c.Day_Name, CAST(SUBSTR(e.Admission_DateTime, 12, 2) AS date ) AS hour_of_day, COUNT(*) AS arrivals
+FROM encounters_clean e
+JOIN calendar_clean c ON c.Full_Date = SUBSTR(e.Admission_DateTime, 1, 10)
+GROUP BY c.Day_Name, c.Day_Of_Week, 2
+ORDER BY arrivals DESC
+LIMIT 10;
+
+-- Q30. Monthly patient volume and month-over-month growth.
+WITH m AS (
+  SELECT SUBSTR(Admission_DateTime, 1, 7) AS month, COUNT(*) AS visits
+  FROM encounters_clean GROUP BY 1)
+SELECT month, visits,
+       LAG(visits) OVER (ORDER BY month) AS previous_month,
+       ROUND(100.0 * (visits - LAG(visits) OVER (ORDER BY month)) / LAG(visits) OVER (ORDER BY month), 1) AS mom_growth_pct
+FROM m
+ORDER BY month;
+
+-- Q31. How many visits each month are a patient's first visit in this data vs a repeat visit?
+--      (repeat share rises over the months only because the data window starts on 1 Jan)
+WITH ranked AS (
+  SELECT SUBSTR(Admission_DateTime, 1, 7) AS month,
+         ROW_NUMBER() OVER (PARTITION BY Patient_ID ORDER BY Admission_DateTime) AS visit_no
+  FROM encounters_clean)
+SELECT month,
+       SUM(CASE WHEN visit_no = 1 THEN 1 ELSE 0 END) AS first_visit_patients,
+       SUM(CASE WHEN visit_no > 1 THEN 1 ELSE 0 END) AS repeat_visits,
+       ROUND(100.0 * SUM(CASE WHEN visit_no > 1 THEN 1 ELSE 0 END) / COUNT(*), 1) AS repeat_pct
+FROM ranked
+GROUP BY month
+ORDER BY month;
+ 
+ -- Q32. Patient mix by region and insurance: volume, average stay and readmission.
+SELECT p.Region, p.Insurance_Type, COUNT(*) AS visits,
+       ROUND(AVG(e.Length_of_Stay_Hours), 1) AS avg_stay_hours,
+       ROUND(100.0 * SUM(CASE WHEN e.Readmission_Flag = 'Yes' THEN 1 ELSE 0 END) / COUNT(*), 1) AS readmission_pct
+FROM encounters_clean e
+JOIN patients_clean p ON p.Patient_ID = e.Patient_ID
+WHERE p.Region <> 'Unknown' AND p.Insurance_Type <> 'Unknown'
+GROUP BY p.Region, p.Insurance_Type
+HAVING COUNT(*) >= 300
+ORDER BY visits DESC;
+
+-- Q33. Are holidays busier or quieter than normal days? Average daily arrivals.
+WITH daily AS (
+  SELECT SUBSTR(Admission_DateTime, 1, 10) AS day, COUNT(*) AS arrivals
+  FROM encounters_clean GROUP BY 1)
+SELECT c.Is_Holiday, COUNT(*) AS days, ROUND(AVG(d.arrivals), 1) AS avg_daily_arrivals
+FROM daily d JOIN calendar_clean c ON c.Full_Date = d.day
+GROUP BY c.Is_Holiday;
+
+-- Q34. Does the season change demand? Visits per day by season.
+SELECT c.Season, COUNT(DISTINCT c.Full_Date) AS days, COUNT(*) AS visits,
+       ROUND(1.0 * COUNT(*) / COUNT(DISTINCT c.Full_Date), 1) AS visits_per_day
+FROM encounters_clean e
+JOIN calendar_clean c ON c.Full_Date = SUBSTR(e.Admission_DateTime, 1, 10)
+GROUP BY c.Season
+ORDER BY visits_per_day DESC;
+
+-- SECTION F - DATA QUALITY 
+
+-- Q35. Completeness report: how many key fields are still missing or 'Unknown'?
+SELECT 'encounters: attending doctor missing' AS check_name, COUNT(*) AS rows_affected FROM encounters_clean WHERE Attending_Doctor_ID IS NULL
+UNION ALL SELECT 'encounters: discharge time missing (not admitted)', COUNT(*) FROM encounters_clean WHERE Discharge_DateTime IS NULL AND Admission_Status <> 'Admitted'
+UNION ALL SELECT 'encounters: triage level unknown', COUNT(*) FROM encounters_clean WHERE Triage_Level = 'Unknown'
+UNION ALL SELECT 'encounters: diagnosis unknown', COUNT(*) FROM encounters_clean WHERE Diagnosis_Category = 'Unknown'
+UNION ALL SELECT 'flow events: waiting time missing', COUNT(*) FROM patient_flow_events_clean WHERE Waiting_Time_Minutes IS NULL AND Event_Status <> 'Cancelled'
+UNION ALL SELECT 'patients: age missing', COUNT(*) FROM patients_clean WHERE Age IS NULL
+UNION ALL SELECT 'beds: daily cost missing', COUNT(*) FROM conflicting_beds WHERE Daily_Bed_Cost IS NULL
+UNION ALL SELECT 'staff: hourly cost missing', COUNT(*) FROM staff_clean WHERE Hourly_Cost IS NULL
+UNION ALL SELECT 'staffing requirements: any count missing', COUNT(*) FROM staffing_requirements_clean
+       WHERE Required_Doctors IS NULL OR Required_Nurses IS NULL OR Available_Doctors IS NULL OR Available_Nurses IS NULL;
+       
+       
+-- Q36. Which encounters have an incomplete patient journey (no Registration, Triage or Doctor event)?
+SELECT
+    e.Encounter_ID,
+    e.Patient_ID,
+
+    CASE
+        WHEN NOT EXISTS (
+            SELECT 1
+            FROM patient_flow_events_clean f
+            WHERE f.Encounter_ID = e.Encounter_ID
+              AND f.Event_Type = 'Registration'
+        ) THEN 'Missing Registration'
+
+        WHEN NOT EXISTS (
+            SELECT 1
+            FROM patient_flow_events_clean f
+            WHERE f.Encounter_ID = e.Encounter_ID
+              AND f.Event_Type = 'Triage'
+        ) THEN 'Missing Triage'
+
+        WHEN NOT EXISTS (
+            SELECT 1
+            FROM patient_flow_events_clean f
+            WHERE f.Encounter_ID = e.Encounter_ID
+              AND f.Event_Type = 'Doctor'
+        ) THEN 'Missing Doctor'
+
+        ELSE 'Complete'
+    END AS Journey_Status
+
+FROM encounters_clean e
+
+WHERE
+    NOT EXISTS (
+        SELECT 1
+        FROM patient_flow_events_clean f
+        WHERE f.Encounter_ID = e.Encounter_ID
+          AND f.Event_Type = 'Registration'
+    )
+
+    OR NOT EXISTS (
+        SELECT 1
+        FROM patient_flow_events_clean f
+        WHERE f.Encounter_ID = e.Encounter_ID
+          AND f.Event_Type = 'Triage'
+    )
+
+    OR NOT EXISTS (
+        SELECT 1
+        FROM patient_flow_events_clean f
+        WHERE f.Encounter_ID = e.Encounter_ID
+          AND f.Event_Type = 'Doctor'
+    )
+
+ORDER BY e.Encounter_ID;
+
+
+SELECT
+    c.Full_Date,
+    c.Day_Name,
+    COUNT(DISTINCT o.Bed_ID) AS Beds_In_Use_At_Noon,
+    ROUND(
+        100.0 * COUNT(DISTINCT o.Bed_ID) /
+        NULLIF(
+            (SELECT COUNT(DISTINCT Bed_ID)
+             FROM conflicting_beds
+             WHERE Bed_Status <> 'Inactive'),
+            0
+        ),
+        1
+    ) AS Occupancy_Pct
+FROM calendar_clean AS c
+LEFT JOIN bed_occupancy_clean AS o
+    ON CONCAT(c.Full_Date, ' 12:00:00') >= o.Admission_Time
+    AND (
+        o.Discharge_Time IS NULL
+        OR CONCAT(c.Full_Date, ' 12:00:00') < o.Discharge_Time
+    )
+WHERE c.Full_Date BETWEEN '2026-01-01' AND '2026-10-28'
+GROUP BY c.Full_Date, c.Day_Name;
+
+
