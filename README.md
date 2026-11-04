@@ -1,7 +1,6 @@
-# healthcare-intelligence-hospital-performance-platform
-End-to-end healthcare analytics: messy hospital data cleaned with Python, modelled in MySQL and presented in a 5-page Power BI dashboard on patient flow, bed capacity, outcomes, workforce efficiency and cost.
-# Healthcare Intelligence, Hospital Performance & Operational Optimization Platform
 
+# Healthcare Intelligence, Hospital Performance & Operational Optimization Platform
+End-to-end healthcare analytics: messy hospital data cleaned with Python, modelled in MySQL and presented in a 5-page Power BI dashboard on patient flow, bed capacity, outcomes, workforce efficiency and cost.
 **OmniCare ER: patient and staff flow analytics.** An end-to-end data analytics project on a hospital emergency department: messy raw data → cleaned and validated with **Python** → modelled and analysed with **SQL (MySQL)** → checked in **Excel** → visualised in a **5-page Power BI dashboard**.
 
 > **Data note:** all data is synthetic (computer-generated) and contains no real patient information. It was built to look like a real hospital extract, including realistic data-quality problems.
