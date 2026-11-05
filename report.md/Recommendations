@@ -1,0 +1,94 @@
+# Recommendations
+
+Actions for hospital management, ranked by impact and effort. Targets are **suggested starting points** to be agreed with clinical leaders; they are not benchmarks taken from the data.
+
+## Priority overview
+
+| Priority | Recommendation | Main evidence | Effort |
+|---|---|---|---|
+| 1 | Add triage and nurse capacity at peak hours and on Mondays | Doctor wait 72 min; triage 69% delayed; ER nurse coverage 85–91% | Medium |
+| 2 | Guarantee that Critical patients see a doctor within 10 minutes | 9.5% of Critical patients waited longer; longest 133 min | Low |
+| 3 | Relieve ER crowding by using idle inpatient beds | ER 74% used vs General Surgery 19%; July boarding 23.6% | Medium |
+| 4 | Start a follow-up programme for chronic patients aged 65+ | Readmission 16.9% vs 4.2% | Medium |
+| 5 | Rebalance rosters and control overtime | ER overtime about Rs. 10.3 lakh; 6.2% night absence in the ER | Medium |
+| 6 | Return offline beds to service and speed up ICU turnaround | 36 beds offline; ICU 82 min vs 47 min | Low |
+| 7 | Review the transfer pathway for Critical patients | 23.2% transferred vs about 7% | Medium |
+| 8 | Fix data capture | 478 visits with no doctor, 597 with no triage level, 2,294 events with no wait | Low |
+
+---
+
+## 1. Add triage and nurse capacity at peak hours and on Mondays
+- **Problem:** the doctor step is the longest wait, but doctors are not short (coverage 101–125%); nurses are (85–91%).
+- **Actions**
+  - Move nurse hours to 10:00–21:00 and to Mondays; add a fast-track triage nurse for Low and Medium patients.
+  - Hire or reassign about 114 nurse-shifts on ER mornings (the largest gap).
+  - Review where doctors are positioned so that their time matches arrivals.
+- **Measure:** average doctor wait, triage delayed %, door-to-doctor time, ER nurse coverage %.
+- **Suggested target:** average doctor wait under 45 minutes within the first review period.
+
+## 2. Guarantee that Critical patients see a doctor within 10 minutes
+- **Problem:** 88 of 927 Critical patients waited more than 10 minutes.
+- **Actions**
+  - Make "Critical seen in 10 minutes" a daily alert; review each breach.
+  - Give Critical patients an automatic page to the nearest free doctor.
+- **Measure:** Critical breaches per week (Q3).
+- **Suggested target:** zero breaches.
+
+## 3. Relieve ER crowding by using idle inpatient beds
+- **Problem:** the ER runs at 74% while General Surgery, Pediatrics and General Medicine use 19–30% of their beds; in July nearly one in four ER bed requests waited over 2 hours.
+- **Actions**
+  - Move admitted ER patients to inpatient beds earlier, using a daily bed-availability list.
+  - Review bed allocation, for example lending General Medicine beds to overflow cases.
+  - Set an alert when ER boarding passes 2 hours.
+- **Measure:** ER bed requests waiting over 2 hours (%), ER utilisation, inpatient utilisation (Q9, Q10).
+- **Suggested target:** under 5% of ER bed requests waiting over 2 hours.
+
+## 4. Start a follow-up programme for chronic patients aged 65+
+- **Problem:** chronic patients aged 65+ return within 30 days 16.9% of the time, four times the rate of non-chronic adults.
+- **Actions**
+  - Discharge plan, medication review and a follow-up call within 72 hours.
+  - Link these patients to a care coordinator or a community clinic.
+- **Measure:** 30-day readmission rate for chronic patients (Q23).
+- **Suggested target:** reduce the rate in steps and track it monthly.
+
+## 5. Rebalance rosters and control overtime
+- **Problem:** overtime is about 7% of labour cost, and some staff work more than twice their department's average overtime; night shifts have the highest absence.
+- **Actions**
+  - Cap overtime per person; review the burn-out list (Q20) every month.
+  - Use part-time or float staff to cover Monday peaks and night absences.
+  - Check the ER shifts that appear to have one nurse for 14–24 patients (Q22).
+- **Measure:** overtime hours, overtime cost, absence % by shift (Q18, Q19).
+
+## 6. Return offline beds to service and speed up ICU turnaround
+- **Problem:** 36 of 300 beds are offline (about 12%), and ICU beds take 82 minutes to reset.
+- **Actions**
+  - Set a maintenance time limit and track it per bed.
+  - Add a dedicated ICU cleaning team or a second cleaner at peak times.
+- **Measure:** offline beds, ICU turnaround minutes (Q11, Q13).
+
+## 7. Review the transfer pathway for Critical patients
+- **Problem:** 23.2% of Critical patients are transferred out, about three times the rate of other levels.
+- **Actions**
+  - Audit a sample of transfers: capability gap, bed shortage or planned specialist care?
+  - Agree transfer protocols with partner hospitals if the cause is capability.
+- **Measure:** transfer rate by triage level (Q25).
+
+## 8. Fix data capture
+- **Problem:** missing doctor, triage level, diagnosis and waiting times limit what can be measured.
+- **Actions**
+  - Make attending doctor and triage level mandatory fields in the system.
+  - Validate dates and IDs at entry (no end before start, only existing patient, bed and staff IDs).
+  - Standardise drop-down lists so spelling and label variants cannot occur.
+  - Check the data-quality queries (Q35, Q36) every week.
+- **Measure:** count of missing key fields.
+
+---
+
+## Quick wins (first 30 days)
+1. Daily alert for Critical patients waiting over 10 minutes.
+2. Daily bed-availability list shared with the ER.
+3. Monthly review of the overtime and burn-out list.
+4. Mandatory triage and doctor fields in the registration form.
+
+## Dashboard monitoring
+Track these on the Power BI report every week: average doctor wait, delayed % by stage, ER boarding %, bed utilisation by department, nurse coverage %, overtime hours, 30-day readmission rate, and missing key fields.
