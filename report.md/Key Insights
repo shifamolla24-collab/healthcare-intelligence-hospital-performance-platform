@@ -1,0 +1,101 @@
+# Key Insights
+
+Findings from the cleaned `HEALTHCARE` data (1 Jan – 28 Oct 2026; staffing and shift data 1 Sep – 28 Oct). "Q" numbers refer to [`business_questions.md`](business_questions.md).
+
+> The data is synthetic, so the numbers demonstrate the method. Overtime cost assumes 1.5× the hourly cost.
+
+## At a glance
+
+| Area | Headline |
+|---|---|
+| Volume | About 66 patients a day (19,870 visits); steady all year at 1,856–2,125 a month |
+| Waiting | Average doctor wait 72 min; Low-priority patients wait 110 min |
+| Capacity | ER beds 74% used vs 19–56% elsewhere; hospital as a whole never above half full at noon |
+| Workforce | ER nurse coverage 85–91%; doctor coverage 101–125% |
+| Outcomes | Chronic patients aged 65+ are readmitted 16.9% of the time |
+| Cost | Estimated overtime about 7% of labour cost, highest in the ER |
+
+---
+
+## 1. Patient flow: the doctor step is the bottleneck
+
+**Evidence**
+- Average doctor wait is **72 min**; by priority: Low 110 min, Medium 67 min (Q1).
+- **39%** of doctor steps are flagged delayed; **69%** of triage steps are delayed; registration 17%, discharge 9%, bed 5% (Q2).
+- From walking in to seeing a doctor: Low 182 min, Medium 119, High 63, Critical 30 (Q4).
+- Waits are the same on weekends and weekdays (72 min), and flat across months (69–75 min) and seasons (Q6): this is a **steady process problem**, not a seasonal one.
+
+**So what:** the delay is built into how the ER works every day. Improving the queue for Low and Medium patients would shorten most visits.
+
+## 2. Patient safety: some critical patients wait too long
+
+**Evidence**
+- 88 of 927 Critical patients (**9.5%**) waited more than 10 minutes for a doctor; the longest wait was 133 minutes (Q3).
+
+**So what:** Critical patients should be seen almost immediately, so every breach is worth investigating.
+
+## 3. Peak hours and peak days
+
+**Evidence**
+- Arrivals peak at **11:00** (726) and **18:00** (687); doctor waits are 64–78 min from 10:00 to 20:00 against 36–49 min from 02:00 to 07:00 (Q5).
+- Mondays are the busiest day: **3,306** visits vs 2,443 on Sundays (about 35% more); five of the nine busiest arrival slots are on Mondays (Q29).
+- Worst single day: Monday 10 August, with an average doctor wait of 126 minutes (Q8).
+- Holidays are only slightly busier (68.6 vs 65.9 arrivals a day) and slightly slower (77 vs 72 min) (Q33).
+
+**So what:** rosters should follow the weekday and hour pattern, not a flat schedule.
+
+## 4. Capacity: the ER is crowded while other wards sit half empty
+
+**Evidence**
+- Bed utilisation: ER **74%**, ICU 56%, Orthopedics 45%, Neurology 44%, Cardiology 42%, General Medicine 30%, Pediatrics 26%, General Surgery **19%** (Q9).
+- In July, **23.6%** of ER bed requests waited more than 2 hours; the longest wait was 613 minutes (Q10).
+- The busiest noon of the year had 141 beds in use, only **49%** of open beds (Q14).
+- 36 of 300 beds are offline (24 maintenance, 12 inactive), costing about Rs. 1.1 lakh a day (Q13).
+- ICU beds take 82 minutes to turn around vs about 47 minutes elsewhere (Q11).
+
+**So what:** the hospital has enough beds overall. The problem is where patients are (the ER) and how fast beds move patients out of it.
+
+## 5. Workforce: nurses are short, doctors are not
+
+**Evidence**
+- ER nurse coverage: **85%** morning, 87% night, 91% evening. The ER morning shift is short of 114 nurses (Q15, Q17).
+- ER doctor coverage is 113%, 125% and 101%, and every doctor gap is negative (a surplus) (Q15, Q17).
+- Across all departments, **42%** of department/shift/acuity slots are short of nurses; Critical slots are short less often (30%) than the others (about 45%) (Q16).
+- Overtime and absence: ER overtime 921 hours (about Rs. 10.3 lakh); night shifts have 5.7% absence against 4.3–4.5% on other shifts; Laboratory nights reach 8% (Q18, Q19).
+- Burn-out risk: staff with more than twice their department's average overtime (Q20).
+- Some ER shifts show one nurse for 14–24 expected patients (Q22); these need to be checked against the source system.
+
+**So what:** doctors are not the shortage, yet doctor waits are long. The likely cause is the nurse-led front end (triage and flow), and the timing of when doctors are present.
+
+## 6. Outcomes: chronic and older patients come back
+
+**Evidence**
+- 30-day readmission: chronic 65+ **16.9%**, chronic 18–64 13.7%, non-chronic 65+ 7.8%, non-chronic 18–64 **4.2%** (Q23).
+- By diagnosis the rate is flat (7.6–8.5%), so chronic condition and age matter far more than the diagnosis itself (Q24).
+- Critical patients are transferred out **23.2%** of the time vs 7.1–7.7% for other levels (Q25).
+- ICU stays average 153 hours; Orthopedics 109; Neurology 107 (Q26).
+- Five diagnoses (Cardiovascular, Trauma, Respiratory, Infectious Disease, Gastrointestinal) make up **69.6%** of ER visits (Q27).
+- Doctor caseload is well balanced: the top five doctors each handle 6.8–6.9% of ER patients (Q28).
+- Longer waits mean longer stays: 18.1 hours when the doctor wait is under 30 minutes vs 21.1 hours when it is over 2 hours (Q7).
+
+**So what:** follow-up care should target chronic patients aged 65+, and the high transfer rate for Critical patients should be reviewed.
+
+## 7. Financial and operational performance (cost side)
+
+**Evidence** (15 Sep – 28 Oct, estimated)
+- Labour cost (actual hours × hourly cost) is about **Rs. 6.9 crore**; the ER is the largest part at about Rs. 1.4 crore.
+- Overtime cost is about **Rs. 48.5 lakh**, around 7% of labour cost (ER about Rs. 10.3 lakh).
+- Offline beds cost about Rs. 1.1 lakh a day, 8% of the daily bed cost.
+- The data has no revenue or billing fields, so profitability cannot be assessed.
+
+## 8. Data quality still limits the analysis
+
+| Field | Rows still missing or Unknown |
+|---|---:|
+| Attending doctor | 478 |
+| Discharge time (discharged patients) | 456 |
+| Triage level | 597 |
+| Diagnosis | 794 |
+| Waiting time | 2,294 |
+
+149 ER visits are also missing at least one of the registration, triage or doctor steps (Q35, Q36).
