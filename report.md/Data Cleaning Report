@@ -1,0 +1,158 @@
+# Data Cleaning Report
+
+How the ten raw, messy files were turned into clean, analysis-ready tables. Everything below was done in Python (pandas) with one notebook per table (`notebooks/01…10`) and a shared helper file (`utils.py`).
+
+## 1. Summary
+
+| Item | Result |
+|---|---|
+| Tables cleaned | 10 |
+| Data problems found (cell or row level) | **114,383** |
+| Rows moved to quarantine | 1,544 (see section 5) |
+| Conflicting duplicates saved for review | 584 rows (see section 5) |
+| Accuracy of the cleaned data against the original, error-free data | **99.96%** of filled-in cells |
+| Foreign-key problems after loading into the database | **0** |
+
+## 2. Rows before and after
+
+| Table | Raw rows | Clean rows | Difference |
+|---|---:|---:|---|
+| departments | 14 | 12 | 1 duplicate department, 1 exact copy |
+| calendar | 738 | 730 | duplicate dates removed; 10 deleted dates restored |
+| patients | 12,250 | 12,008 | duplicates and 32 possible duplicates set aside |
+| staff | 472 | 450 | 12 duplicate employees, 10 exact copies |
+| beds | 312 | 300 | 12 duplicate beds |
+| encounters | 20,170 | 19,870 | duplicates removed; 130 unusable visits set aside |
+| patient_flow_events | 97,174 | 95,144 | duplicates removed; 880 orphan events set aside |
+| bed_occupancy | 16,425 | 15,753 | duplicates removed; 377 bad links and 42 overlaps set aside |
+| staff_shifts | 12,536 | 12,266 | duplicates removed; 71 shifts for unknown or inactive staff set aside |
+| staffing_requirements | 5,758 | 5,506 | duplicates removed; rows missing a key field dropped |
+
+## 3. Problems found, by type
+
+| Problem type | Count | Example |
+|---|---:|---|
+| Mixed date formats | 52,515 | `04/01/2026`, `01-04-2026 11:30 PM`, `04-Jan-2026` for the same kind of value |
+| Inconsistent labels | 23,271 | `Male / M / male`, `Yes / Y / 1 / TRUE`, `Bangalore / Bengaluru` |
+| Missing values | 19,348 | blank, `NA`, `N/A`, `null`, `None`, `-`, `?`, a single space |
+| Spelling mistakes | 8,310 | `Crtical`, `Docter`, `Hyderbad`, `Transfered` |
+| Extra whitespace | 4,478 | `" Delhi "`, `"ICU  East"` |
+| Exact duplicate rows | 1,331 | the same row repeated |
+| End before start | 740 | discharge earlier than admission |
+| Broken foreign keys (orphans) | 701 | a patient, bed or staff ID that does not exist |
+| Derived values that disagree with their source | 635 | stay length not matching the two timestamps |
+| Same record saved again under a new ID | 553 | same encounter and event, new event ID |
+| Same ID with conflicting values | 390 | same encounter ID, different triage level |
+| Impossible numbers | 375 | age −5, waiting time −12, bed cost 0 |
+| Numbers stored as text | 355 | `45 yrs`, `Rs. 4,500`, `15 min`, `five` |
+| Night-shift end on the wrong day | 240 | shift ends at 07:00 on the day it starts |
+| Status conflicts | 196 | "Admitted" but has a discharge time |
+| Outliers | 172 | stay of 9,999 hours, age 999 |
+| Name format problems | 140 | `Dr. Rohan Shah`, `SHAH, ROHAN` |
+| Overlapping bed assignments | 120 | two patients in one bed at the same time |
+| Shift in the wrong department | 100 | shift department differs from the staff record |
+| Wrong category | 86 | region that does not match the city |
+| Unit mix-up | 80 | stay in days instead of hours |
+| Future dates | 63 | registration in 2029 |
+| Implausible values | 50 | zero doctors required for Critical patients |
+| Nurse used as attending doctor | 40 | doctor ID belongs to a nurse |
+| Invalid dates | 39 | `2023-02-30`, `0000-00-00` |
+| Shift for an inactive employee | 30 | |
+| Date_ID not matching the date | 15 | |
+| Missing calendar dates | 10 | |
+
+### Problems by table
+| Table | Problems |
+|---|---:|
+| patient_flow_events | 53,071 |
+| encounters | 23,235 |
+| patients | 13,007 |
+| staff_shifts | 11,415 |
+| bed_occupancy | 9,460 |
+| staffing_requirements | 2,621 |
+| calendar | 721 |
+| staff | 614 |
+| beds | 214 |
+| departments | 25 |
+
+## 4. Method (applied in the same order to every table)
+
+| Step | What was done | Why |
+|---|---|---|
+| 1. Read as text | `dtype=str, keep_default_na=False` | Stops pandas guessing types or hiding placeholders |
+| 2. Trim and null | Strip spaces; turn `NA`, `N/A`, `null`, `None`, `-`, `?` into real nulls | One kind of "missing" |
+| 3. Standardise labels | `standardise()` = exact match, then alias dictionary, then fuzzy match (`difflib`, cutoff 0.7); an "unmatched" report lists anything not matched | Fixes spelling and format variants without losing values |
+| 4. Parse dates | Try each known format in turn; failures become null; future dates (after 28 Oct 2026) become null | Avoids day/month confusion |
+| 5. Convert numbers | Pull the number out of text; null negatives and values outside business limits | Impossible values are never guessed |
+| 6. Rebuild derived fields | Length of stay, actual hours, overtime, day name, quarter, region, department, `Operational_Flag`, `Cleaning_Completed_Flag` | A calculated field must agree with its source |
+| 7. Fix logic | Swap reversed start/end times; add one day to night-shift ends; align status with discharge and disposition | Internal consistency |
+| 8. Remove duplicates | (a) exact copies, (b) same key: keep the most complete row, (c) same record under a new ID: use a business key | Each kind of duplicate needs its own rule |
+| 9. Check links | Anti-join every foreign key against its parent table | Referential integrity |
+| 10. Recover what can be recovered | Use related data (see section 6) | Fewer gaps without inventing values |
+| 11. Label what is left | Text categories become `Unknown`; numbers and dates stay `NULL` | Honest handling of gaps |
+
+## 5. Quarantine and review files
+
+Rows that cannot be used are never silently deleted. They are saved in `clean/` for inspection.
+
+| File | Rows | Reason |
+|---|---:|---|
+| quarantine_encounters.csv | 130 | patient missing or not in the patients table, or no usable arrival time |
+| quarantine_flow_events.csv | 880 | event belongs to no valid encounter |
+| quarantine_bed_occupancy_bad_links.csv | 377 | bed or encounter missing or not found |
+| quarantine_bed_occupancy_overlaps.csv | 42 | bed double-booked at the same time |
+| quarantine_shifts_bad_staff.csv | 71 | staff ID unknown or employee inactive |
+| quarantine_possible_duplicate_patients.csv | 32 | same demographics as another patient, no encounters |
+| quarantine_duplicate_staff.csv | 12 | same employee saved under a second ID |
+| review_conflicting_patients.csv | 120 | same Patient_ID with different values |
+| review_conflicting_encounters.csv | 96 | same Encounter_ID with different values (for example triage level) |
+| review_conflicting_flow_events.csv | 296 | same event ID with different values |
+| review_conflicting_requirements.csv | 64 | same requirement ID with different numbers |
+| review_conflicting_beds.csv | 8 | same Bed_ID with different values |
+
+## 6. Gaps recovered from related data
+
+| Gap | Recovered from |
+|---|---|
+| Missing start or end time of a flow event | The next or previous step in the same visit (registration ends when triage starts, and so on) |
+| Missing bed discharge time | The Discharge event start of the same encounter |
+| Invalid department on a bed | The ward name (each ward belongs to one department) |
+| Missing department capacity | The number of beds in that department |
+| Wrong shift type or scheduled times | The scheduled start time and the shift date |
+| Missing actual start or end of a shift | The other actual time and the actual hours |
+| Missing holiday name | The same date in the other year (fixed-date holidays only) |
+| Missing department on a staffing requirement | Elimination: each date, shift and acuity level must contain all eight departments exactly once |
+| Missing calendar dates | Rebuilding the full 2025–2026 date range |
+
+## 7. Business rules applied
+
+- Waiting time can never be longer than the step it belongs to.
+- A bed is operational only when its status is Available; ER and ICU wards hold only Emergency and ICU beds.
+- An employee works at most one shift a day, and only active employees work shifts.
+- A patient's bed must belong to the patient's department; when one stay appears with two beds, the matching bed is kept.
+- Experience cannot be less than the years since joining.
+- Transferred patients always have disposition Transfer; a patient with a discharge time is not "Admitted".
+
+## 8. Validation
+
+1. **Against the original data:** 99.96% of filled-in cells match the error-free source. Remaining differences come from judgement calls on conflicting duplicates and from shift end times that are a few minutes out.
+2. **Against the database:** the tables load with primary keys, foreign keys and CHECK rules, and `PRAGMA foreign_key_check` returns 0 problems.
+3. **Rule checks:** no reversed times, no negative stays, no duplicate keys, no overlapping bed stays.
+
+## 9. What could not be fixed
+
+| Field | Rows still empty or Unknown |
+|---|---:|
+| Attending doctor (encounters) | 478 |
+| Discharge time for discharged patients | 456 |
+| Triage level | 597 |
+| Diagnosis category | 794 |
+| Waiting time (flow events) | 2,294 |
+
+Reports that use these fields exclude the empty rows, and this is stated where it matters.
+
+## 10. Known limitations of the cleaning
+
+- Where two rows with the same ID disagree, the file alone cannot show which is right; the most complete row is kept and the conflict is saved for review.
+- Department codes such as `D1`, `d01` and `D 01` were mapped to `D01`. When these codes overwrote a different department, the mapping can be wrong (a small number of encounters).
+- Two genuine patients with identical demographics were removed as "possible duplicates"; both are in the quarantine file.
