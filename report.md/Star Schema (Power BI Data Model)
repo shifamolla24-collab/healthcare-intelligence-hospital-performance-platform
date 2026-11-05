@@ -1,0 +1,91 @@
+# Star Schema (Power BI Data Model)
+
+## 1. Design
+The model has five **fact tables** (events that happen) and five **dimension tables** (the things the events refer to). `calendar` is the shared date table.
+
+```mermaid
+erDiagram
+    PATIENTS ||--o{ ENCOUNTERS : "has visits"
+    DEPARTMENTS ||--o{ ENCOUNTERS : "admits"
+    STAFF ||--o{ ENCOUNTERS : "attends"
+    ENCOUNTERS ||--o{ PATIENT_FLOW_EVENTS : "has steps"
+    ENCOUNTERS ||--o| BED_OCCUPANCY : "uses a bed"
+    BEDS ||--o{ BED_OCCUPANCY : "is assigned"
+    DEPARTMENTS ||--o{ BEDS : "contains"
+    DEPARTMENTS ||--o{ STAFF : "employs"
+    STAFF ||--o{ STAFF_SHIFTS : "works"
+    DEPARTMENTS ||--o{ STAFFING_REQUIREMENTS : "needs"
+    DEPARTMENTS ||--o{ PATIENT_FLOW_EVENTS : "hosts"
+    STAFF ||--o{ PATIENT_FLOW_EVENTS : "handles"
+    CALENDAR ||--o{ ENCOUNTERS : "arrival date"
+    CALENDAR ||--o{ PATIENT_FLOW_EVENTS : "event date"
+    CALENDAR ||--o{ BED_OCCUPANCY : "bed-in date"
+    CALENDAR ||--o{ STAFF_SHIFTS : "shift date"
+    CALENDAR ||--o{ STAFFING_REQUIREMENTS : "requirement date"
+```
+
+## 2. Fact tables
+
+| Fact table | Grain (one row is…) | Keys to dimensions | Main measures |
+|---|---|---|---|
+| encounters | one hospital visit | Patient_ID, Department_ID, Attending_Doctor_ID, arrival date | Visits, Length_of_Stay_Hours, Readmission_Flag, Admission_Status |
+| patient_flow_events | one step of a visit | Encounter_ID, Department_ID, Assigned_Staff_ID, event date | Waiting_Time_Minutes, Event_Status |
+| bed_occupancy | one bed stay | Bed_ID, Encounter_ID, bed-in date | Occupied hours, Bed_Turnaround_Minutes |
+| staff_shifts | one employee shift | Staff_ID, Department_ID, Shift_Date | Actual_Hours, Overtime_Hours, Absence_Flag |
+| staffing_requirements | one department / date / shift / acuity | Department_ID, Requirement_Date | Required and Available doctors and nurses, Expected_Patients |
+
+## 3. Dimension tables
+
+| Dimension | Key | Attributes used for slicing |
+|---|---|---|
+| patients | Patient_ID | Age group, Gender, Region, City, Insurance_Type, Patient_Category, Chronic_Condition_Flag |
+| departments | Department_ID | Department_Name, Department_Type, Hospital_Building, Department_Capacity |
+| staff | Staff_ID | Staff_Role, Employment_Type, Employment_Status, Experience_Years, Hourly_Cost |
+| beds | Bed_ID | Ward_Name, Bed_Type, Bed_Status, Daily_Bed_Cost |
+| calendar | Full_Date | Year, Month, Quarter, Day_Name, Is_Weekend, Is_Holiday, Holiday_Name, Season |
+
+## 4. Relationships
+
+All relationships are **many-to-one, single direction** (dimension filters fact), except `encounters → bed_occupancy` which is one-to-one.
+
+| From (many side) | To (one side) | Column |
+|---|---|---|
+| encounters | patients | Patient_ID |
+| encounters | departments | Department_ID |
+| encounters | staff | Attending_Doctor_ID |
+| patient_flow_events | encounters | Encounter_ID |
+| patient_flow_events | departments | Department_ID |
+| patient_flow_events | staff | Assigned_Staff_ID |
+| bed_occupancy | beds | Bed_ID |
+| bed_occupancy | encounters | Encounter_ID |
+| beds | departments | Department_ID |
+| staff | departments | Department_ID |
+| staff_shifts | staff | Staff_ID |
+| staff_shifts | departments | Department_ID |
+| staffing_requirements | departments | Department_ID |
+| each fact table | calendar | a date column created in Power Query (see below) |
+
+## 5. Modelling notes
+
+- **Date table:** mark `calendar` as the date table. The fact tables hold timestamps, so a `Date` column is created in Power Query for each one (arrival date, event start date, bed-in date, shift date, requirement date) and related to `calendar[Full_Date]`.
+- **Role-playing staff dimension:** `staff` is used three ways (attending doctor, assigned staff on a step, and shift worker). Keep one active relationship per fact table. Use `USERELATIONSHIP` in a measure if a second path is needed.
+- **Avoid ambiguity:** do not relate `encounters` and `bed_occupancy` to `departments` through two different paths; filter bed data through `beds → departments`.
+- **Hide technical columns:** hide the foreign keys and IDs in report view; show only the descriptive attributes.
+- **Measures table:** keep all DAX measures in a separate `_Measures` table.
+- **Unknown values:** keep `Unknown` as a visible category so that missing data is not hidden in charts.
+
+## 6. Example measures
+```DAX
+Total Visits       = COUNTROWS ( encounters )
+Avg Length of Stay = AVERAGE ( encounters[Length_of_Stay_Hours] )
+Readmission %      = DIVIDE ( CALCULATE ( COUNTROWS ( encounters ), encounters[Readmission_Flag] = "Yes" ), COUNTROWS ( encounters ) )
+Avg Doctor Wait    = CALCULATE ( AVERAGE ( patient_flow_events[Waiting_Time_Minutes] ), patient_flow_events[Event_Type] = "Doctor" )
+Delayed %          = DIVIDE ( CALCULATE ( COUNTROWS ( patient_flow_events ), patient_flow_events[Event_Status] = "Delayed" ),
+                              CALCULATE ( COUNTROWS ( patient_flow_events ), patient_flow_events[Event_Status] IN { "Completed", "Delayed" } ) )
+Avg Bed Turnaround = AVERAGE ( bed_occupancy[Bed_Turnaround_Minutes] )
+Nurse Gap          = SUM ( staffing_requirements[Required_Nurses] ) - SUM ( staffing_requirements[Available_Nurses] )
+Nurse Coverage %   = DIVIDE ( SUM ( staffing_requirements[Available_Nurses] ), SUM ( staffing_requirements[Required_Nurses] ) )
+Overtime Hours     = SUM ( staff_shifts[Overtime_Hours] )
+Absence %          = DIVIDE ( CALCULATE ( COUNTROWS ( staff_shifts ), staff_shifts[Absence_Flag] = "Yes" ), COUNTROWS ( staff_shifts ) )
+```
+(Adjust table and column names if your model uses different names.)
