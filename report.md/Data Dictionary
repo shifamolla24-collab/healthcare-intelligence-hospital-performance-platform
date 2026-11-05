@@ -1,0 +1,173 @@
+# Data Dictionary
+
+Ten cleaned tables in the `HEALTHCARE` database (MySQL tables carry the suffix `_clean`, for example `encounters_clean`).
+
+**Conventions**
+- Dates are `YYYY-MM-DD`; date-times are `YYYY-MM-DD HH:MM:SS`.
+- Missing text categories are `Unknown`; missing numbers and dates are `NULL`.
+- Currency is INR. Staffing gap = Required − Available (positive = shortage).
+- PK = primary key, FK = foreign key.
+
+| Table | Grain (one row is…) | Rows (clean) |
+|---|---|---:|
+| departments_clean | one hospital department | 12 |
+| calendar_clean | one calendar day | 730 |
+| patients_clean | one patient | 12,008 |
+| staff_clean | one employee | 450 |
+| beds_clean | one hospital bed | 300 |
+| encounters_clean | one hospital visit | 19,870 |
+| patient_flow_events_clean | one step in a visit | 95,144 |
+| bed_occupancy_clean | one bed assignment | 15,753 |
+| staff_shifts_clean | one employee's shift | 12,266 |
+| staffing_requirements_clean | one department / date / shift / acuity level | 5,506 |
+
+---
+
+## departments_clean
+| Column | Type | Key | Description and rules |
+|---|---|---|---|
+| Department_ID | Text | PK | D01–D12 |
+| Department_Name | Text | | Emergency, ICU, Cardiology, Orthopedics, Neurology, General Medicine, Pediatrics, General Surgery, Radiology, Laboratory, Pharmacy, Outpatient Clinic |
+| Department_Type | Text | | Emergency / Inpatient / Outpatient / Unknown |
+| Hospital_Building | Text | | Main Block, Block A, Block B, Annex, Unknown |
+| Department_Capacity | Integer | | Beds for ER and inpatient departments; patients per day for outpatient departments. Must be > 0 or NULL |
+| Department_Manager | Text | | Staff_ID of the manager, or Unknown |
+| Operating_Hours | Text | | `24x7` or `HH:MM-HH:MM` |
+
+## calendar_clean
+| Column | Type | Key | Description and rules |
+|---|---|---|---|
+| Date_ID | Integer | PK | `YYYYMMDD` |
+| Full_Date | Date | unique | Calendar date, 2025-01-01 to 2026-12-31 |
+| Day_Name | Text | | Monday … Sunday |
+| Day_Of_Week | Integer | | 1 = Monday … 7 = Sunday |
+| Month | Integer | | 1–12 |
+| Quarter | Integer | | 1–4 |
+| Is_Weekend | Text | | Yes / No (Saturday and Sunday) |
+| Is_Holiday | Text | | Yes / No |
+| Holiday_Name | Text | | Indian public holiday; empty on normal days; "Holiday (name unknown)" where the name could not be recovered |
+| Season | Text | | Winter (Dec–Feb), Summer (Mar–May), Monsoon (Jun–Sep), Post-Monsoon (Oct–Nov) |
+
+## patients_clean
+| Column | Type | Key | Description and rules |
+|---|---|---|---|
+| Patient_ID | Text | PK | Unique patient ID |
+| Age | Integer | | 0–110; NULL if unknown or invalid |
+| Gender | Text | | Male / Female / Other / Unknown |
+| City | Text | | One of 16 Indian cities, or Unknown |
+| Region | Text | | West / North / South / East / Central / Unknown; derived from City |
+| Insurance_Type | Text | | Private / Public / Self-pay / Unknown |
+| Patient_Category | Text | | New (registered in 2026) / Returning / Unknown |
+| Chronic_Condition_Flag | Text | | Yes / No / Unknown |
+| Registration_Date | Date | | First registration; NULL if invalid |
+
+## staff_clean
+| Column | Type | Key | Description and rules |
+|---|---|---|---|
+| Staff_ID | Text | PK | Unique staff ID |
+| Staff_Name | Text | | Synthetic name in "First Last" format, no titles |
+| Department_ID | Text | FK | → departments; NULL if unknown |
+| Staff_Role | Text | | Doctor / Nurse / Technician / Unknown |
+| Employment_Type | Text | | Full-time / Part-time / Contract / Unknown |
+| Experience_Years | Integer | | 0–60; never less than years since joining |
+| Joining_Date | Date | | Employment start; NULL if invalid |
+| Employment_Status | Text | | Active / Inactive / Unknown |
+| Hourly_Cost | Integer | | Cost per working hour (INR); > 0 or NULL |
+
+## beds_clean
+| Column | Type | Key | Description and rules |
+|---|---|---|---|
+| Bed_ID | Text | PK | Unique bed ID |
+| Department_ID | Text | FK | → departments (never NULL) |
+| Ward_Name | Text | | One of 16 wards, or Unknown |
+| Bed_Type | Text | | General / ICU / Emergency / Private / Unknown. Emergency only in D01, ICU only in D02 |
+| Bed_Status | Text | | Available / Maintenance / Inactive / Unknown |
+| Operational_Flag | Text | | Yes only when the bed is Available |
+| Daily_Bed_Cost | Integer | | Daily operating cost (INR); > 0 or NULL |
+
+## encounters_clean
+| Column | Type | Key | Description and rules |
+|---|---|---|---|
+| Encounter_ID | Text | PK | Unique visit ID |
+| Patient_ID | Text | FK | → patients (never NULL) |
+| Department_ID | Text | FK | → departments; NULL if unknown |
+| Admission_DateTime | DateTime | | Arrival time (never NULL, never after 28 Oct 2026) |
+| Admission_Type | Text | | Emergency / Scheduled / Referral / Unknown |
+| Triage_Level | Text | | Critical / High / Medium / Low / Unknown |
+| Diagnosis_Category | Text | | Cardiovascular, Respiratory, Trauma, Infectious Disease, Gastrointestinal, Neurological, Orthopedic, Renal, Oncology, Metabolic, Obstetrics, Unknown |
+| Admission_Status | Text | | Admitted (still in hospital) / Discharged / Transferred |
+| Discharge_DateTime | DateTime | | NULL while admitted or if unrecoverable; never before admission |
+| Discharge_Disposition | Text | | Home / Transfer / Other / Unknown. Transferred always goes with Transfer |
+| Attending_Doctor_ID | Text | FK | → staff (a doctor); NULL if unknown |
+| Length_of_Stay_Hours | Decimal | | **Recalculated** = discharge − admission, in hours |
+| Readmission_Flag | Text | | Back within 30 days: Yes / No / Unknown |
+
+## patient_flow_events_clean
+| Column | Type | Key | Description and rules |
+|---|---|---|---|
+| Flow_Event_ID | Text | PK | Unique event ID |
+| Encounter_ID | Text | FK | → encounters |
+| Event_Type | Text | | Registration / Triage / Doctor / Bed / Discharge / Unknown. At most one of each per encounter |
+| Event_Start_Time | DateTime | | When the patient joined the queue for that step |
+| Event_End_Time | DateTime | | When the step finished; NULL if cancelled |
+| Department_ID | Text | FK | → departments |
+| Assigned_Staff_ID | Text | FK | → staff |
+| Waiting_Time_Minutes | Integer | | Minutes waited before the step started; never longer than the whole step |
+| Event_Status | Text | | Completed / Delayed / Cancelled / Unknown |
+
+`Delayed` is set when the wait passes the step's limit: registration and triage > 15 min; doctor > 10 / 30 / 60 / 90 min for Critical / High / Medium / Low; bed > 120 min; discharge > 90 min.
+
+## bed_occupancy_clean
+| Column | Type | Key | Description and rules |
+|---|---|---|---|
+| Occupancy_ID | Text | PK | Unique assignment ID |
+| Bed_ID | Text | FK | → beds |
+| Encounter_ID | Text | FK, unique | → encounters; one bed stay per encounter |
+| Admission_Time | DateTime | | Bed assigned |
+| Discharge_Time | DateTime | | Bed released; NULL while occupied |
+| Occupancy_Status | Text | | Occupied / Released |
+| Bed_Turnaround_Minutes | Integer | | Minutes to clean and reset the bed (0–600) |
+| Cleaning_Completed_Flag | Text | | Yes when Released, No when Occupied |
+
+A bed never has two overlapping stays.
+
+## staff_shifts_clean
+| Column | Type | Key | Description and rules |
+|---|---|---|---|
+| Shift_ID | Text | PK | Unique shift ID |
+| Staff_ID | Text | FK | → staff (active staff only) |
+| Department_ID | Text | FK | Taken from the staff table |
+| Shift_Date | Date | | Date the shift starts; unique together with Staff_ID |
+| Shift_Type | Text | | Morning 07:00–15:00, Evening 15:00–23:00, Night 23:00–07:00 (next day) |
+| Scheduled_Start / Scheduled_End | DateTime | | Planned times (8 hours) |
+| Actual_Start / Actual_End | DateTime | | Real times; NULL when absent |
+| Scheduled_Hours | Decimal | | 8 |
+| Actual_Hours | Decimal | | Recalculated from the actual times; 0 when absent |
+| Overtime_Hours | Decimal | | Actual hours above 8; 0 when absent |
+| Absence_Flag | Text | | Yes / No / Unknown |
+
+## staffing_requirements_clean
+| Column | Type | Key | Description and rules |
+|---|---|---|---|
+| Requirement_ID | Text | PK | Unique ID |
+| Department_ID | Text | FK | → departments (D01–D08 only) |
+| Requirement_Date | Date | | Date; unique together with department, shift and acuity |
+| Shift_Type | Text | | Morning / Evening / Night |
+| Acuity_Level | Text | | Critical / High / Medium / Low |
+| Expected_Patients | Integer | | Expected patient count |
+| Required_Doctors / Required_Nurses | Integer | | Staff needed; NULL if invalid |
+| Available_Doctors / Available_Nurses | Integer | | Staff actually available; NULL if invalid |
+
+---
+
+## Calculated measures used in the analysis
+| Measure | Definition |
+|---|---|
+| Staffing gap | Required − Available (doctors or nurses) |
+| Coverage % | Available ÷ Required × 100 |
+| Bed utilisation % | Occupied bed-hours ÷ (beds × hours in the period) × 100 |
+| Delayed % | Delayed steps ÷ (Completed + Delayed steps) × 100 |
+| Readmission % | Encounters with Readmission_Flag = Yes ÷ all encounters × 100 |
+| Estimated overtime cost | Overtime_Hours × Hourly_Cost × 1.5 (assumed rate) |
+| Estimated labour cost | Actual_Hours × Hourly_Cost |
+| Door-to-doctor time | Minutes from Admission_DateTime to the Doctor event start, plus the wait |
